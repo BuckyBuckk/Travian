@@ -4,13 +4,13 @@
         - Username
         - Password
         - E-Mail
-        - Creates city on map
+        - Creates village on map
     - Login
         - Username
         - Password
     - Resources:
-        - Current resources / Max capacity
-        - 18 Total (+City):
+        - Current resources / Max capavillage
+        - 18 Total (+Village):
             - 4 Wood
             - 4 Clay
             - 4 Iron
@@ -24,7 +24,7 @@
         - Troops
         - Troops leaving and arriving (time)
         - Buildings that are being built (name, time, cancel)
-    - City:
+    - Village:
         - Barracks:        
             - Troops that can be trained
                 - Cost, time and crop consumption of training
@@ -34,8 +34,8 @@
             - Cost, time and crop consumption of upgrading
     - Map:
         - 7x7(?) Grid
-        - User's city in the middle
-        - Another user's city:
+        - User's village in the middle
+        - Another user's village:
             - Name
             - Coordinates
             - Send reinforcement
@@ -44,19 +44,19 @@
     - Send attack:
         - List of all availabe troops
         - Choose how many to send
-        - Coordinates and name of the city
+        - Coordinates and name of the village
         - Calculate the time to get there (based on the distance + speed of the slowest troop)
         - Confirm?
     - Reports:
         - Description (attack/reinforcement/...)
-        - Attacker's city name and coordinates
+        - Attacker's village name and coordinates
         - Attacker's Troops
         - Troops that died
         - (calculate both attacking powers?)
         - Resources stolen
         ----------------------------
         - Description (attack/reinforcement/...)
-        - Defenders's city name and coordinates
+        - Defenders's village name and coordinates
         - Defenders's Troops
         - Troops that died
         - (calculate both defending powers?)
