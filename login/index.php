@@ -24,7 +24,7 @@ if (isset($_POST['username']) and isset($_POST['password'])){
     if ($count == 1 && password_verify($password, $dbpasswordhash)){
         $_SESSION['username'] = $username;
         $_SESSION['last_login_timestamp'] = time();
-        header('location: resources');
+        header('location: /resources');
     } 
     else{
     //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
@@ -34,7 +34,7 @@ if (isset($_POST['username']) and isset($_POST['password'])){
 //3.1.4 if the user is logged in Greets the user with message
 if (isset($_SESSION['username'])){
   $username = $_SESSION['username'];
-  header('location: resources');
+  header('location: /resources');
   
 }
 else{
@@ -91,9 +91,7 @@ else{
         <form class="form-group w-50 m-auto" method="POST">
             <h2 class="form-signin-heading" >Login</h2>
             <input type="text" name="username" class="form-control w-100 my-2 username-field input-lg" placeholder="Username" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" name="password" id="inputPassword" class="form-control w-100 mb-2" placeholder="Password" required>
-
             <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
             <a class="btn btn-lg btn-primary btn-block" href="/register">Register</a>
         </form>
