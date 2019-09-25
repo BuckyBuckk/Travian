@@ -8,199 +8,199 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema travian
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS `travian` ;
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema travian
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `travian` DEFAULT CHARACTER SET utf8 ;
+USE `travian` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`allBuildings`
+-- Table `travian`.`allBuildings`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`allBuildings` ;
+DROP TABLE IF EXISTS `travian`.`allBuildings` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`allBuildings` (
+CREATE TABLE IF NOT EXISTS `travian`.`allBuildings` (
   `idCity` INT NOT NULL,
   `idBuilding` INT UNSIGNED NOT NULL,
   `level` INT NULL,
   PRIMARY KEY (`idCity`, `idBuilding`),
-  INDEX `fk_City_has_buildings_buildings1_idx` (`idBuilding` ASC) VISIBLE,
-  INDEX `fk_City_has_buildings_City1_idx` (`idCity` ASC) VISIBLE,
+  INDEX `fk_City_has_buildings_buildings1_idx` (`idBuilding` ASC) ,
+  INDEX `fk_City_has_buildings_City1_idx` (`idCity` ASC) ,
   CONSTRAINT `fk_City_has_buildings_City1`
     FOREIGN KEY (`idCity`)
-    REFERENCES `mydb`.`village` (`idCity`)
+    REFERENCES `travian`.`village` (`idCity`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_City_has_buildings_buildings1`
     FOREIGN KEY (`idBuilding`)
-    REFERENCES `mydb`.`buildings` (`idBuilding`)
+    REFERENCES `travian`.`buildings` (`idBuilding`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`allVillage`
+-- Table `travian`.`allVillage`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`allVillage` ;
+DROP TABLE IF EXISTS `travian`.`allVillage` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`allVillage` (
+CREATE TABLE IF NOT EXISTS `travian`.`allVillage` (
   `idPlayer` INT UNSIGNED NOT NULL,
   `idCity` INT NOT NULL,
   PRIMARY KEY (`idPlayer`, `idCity`),
-  INDEX `fk_player_has_City_City1_idx` (`idCity` ASC) VISIBLE,
-  INDEX `fk_player_has_City_player1_idx` (`idPlayer` ASC) VISIBLE,
+  INDEX `fk_player_has_City_City1_idx` (`idCity` ASC) ,
+  INDEX `fk_player_has_City_player1_idx` (`idPlayer` ASC) ,
   CONSTRAINT `fk_player_has_City_player1`
     FOREIGN KEY (`idPlayer`)
-    REFERENCES `mydb`.`player` (`idplayer`)
+    REFERENCES `travian`.`player` (`idplayer`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_player_has_City_City1`
     FOREIGN KEY (`idCity`)
-    REFERENCES `mydb`.`village` (`idCity`)
+    REFERENCES `travian`.`village` (`idCity`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`buildings`
+-- Table `travian`.`buildings`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`buildings` ;
+DROP TABLE IF EXISTS `travian`.`buildings` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`buildings` (
+CREATE TABLE IF NOT EXISTS `travian`.`buildings` (
   `idBuilding` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idBuilding`),
-  UNIQUE INDEX `idBuilding_UNIQUE` (`idBuilding` ASC) VISIBLE)
+  UNIQUE INDEX `idBuilding_UNIQUE` (`idBuilding` ASC) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`cost`
+-- Table `travian`.`cost`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`cost` ;
+DROP TABLE IF EXISTS `travian`.`cost` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`cost` (
+CREATE TABLE IF NOT EXISTS `travian`.`cost` (
   `idCost` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `production_idProductionField` INT NULL,
   `allBuildings_idCity` INT NULL,
   `allBuildings_idBuilding` INT UNSIGNED NULL,
   PRIMARY KEY (`idCost`),
-  INDEX `fk_cost_production1_idx` (`production_idProductionField` ASC) VISIBLE,
-  INDEX `fk_cost_allBuildings1_idx` (`allBuildings_idCity` ASC, `allBuildings_idBuilding` ASC) VISIBLE,
+  INDEX `fk_cost_production1_idx` (`production_idProductionField` ASC) ,
+  INDEX `fk_cost_allBuildings1_idx` (`allBuildings_idCity` ASC, `allBuildings_idBuilding` ASC) ,
   CONSTRAINT `fk_cost_production1`
     FOREIGN KEY (`production_idProductionField`)
-    REFERENCES `mydb`.`productionField` (`idProductionField`)
+    REFERENCES `travian`.`productionField` (`idProductionField`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cost_allBuildings1`
     FOREIGN KEY (`allBuildings_idCity` , `allBuildings_idBuilding`)
-    REFERENCES `mydb`.`allBuildings` (`idCity` , `idBuilding`)
+    REFERENCES `travian`.`allBuildings` (`idCity` , `idBuilding`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`cost`
+-- Table `travian`.`cost`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`cost` ;
+DROP TABLE IF EXISTS `travian`.`cost` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`cost` (
+CREATE TABLE IF NOT EXISTS `travian`.`cost` (
   `idCost` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `production_idProductionField` INT NULL,
   `allBuildings_idCity` INT NULL,
   `allBuildings_idBuilding` INT UNSIGNED NULL,
   PRIMARY KEY (`idCost`),
-  INDEX `fk_cost_production1_idx` (`production_idProductionField` ASC) VISIBLE,
-  INDEX `fk_cost_allBuildings1_idx` (`allBuildings_idCity` ASC, `allBuildings_idBuilding` ASC) VISIBLE,
+  INDEX `fk_cost_production1_idx` (`production_idProductionField` ASC) ,
+  INDEX `fk_cost_allBuildings1_idx` (`allBuildings_idCity` ASC, `allBuildings_idBuilding` ASC) ,
   CONSTRAINT `fk_cost_production1`
     FOREIGN KEY (`production_idProductionField`)
-    REFERENCES `mydb`.`productionField` (`idProductionField`)
+    REFERENCES `travian`.`productionField` (`idProductionField`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cost_allBuildings1`
     FOREIGN KEY (`allBuildings_idCity` , `allBuildings_idBuilding`)
-    REFERENCES `mydb`.`allBuildings` (`idCity` , `idBuilding`)
+    REFERENCES `travian`.`allBuildings` (`idCity` , `idBuilding`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`cost_has_resources`
+-- Table `travian`.`cost_has_resources`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`cost_has_resources` ;
+DROP TABLE IF EXISTS `travian`.`cost_has_resources` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`cost_has_resources` (
+CREATE TABLE IF NOT EXISTS `travian`.`cost_has_resources` (
   `idCost` INT UNSIGNED NOT NULL,
   `idResource` INT UNSIGNED NOT NULL,
   `count` DECIMAL NULL,
   PRIMARY KEY (`idCost`, `idResource`),
-  INDEX `fk_cost_has_resources_resources1_idx` (`idResource` ASC) VISIBLE,
-  INDEX `fk_cost_has_resources_cost1_idx` (`idCost` ASC) VISIBLE,
+  INDEX `fk_cost_has_resources_resources1_idx` (`idResource` ASC) ,
+  INDEX `fk_cost_has_resources_cost1_idx` (`idCost` ASC) ,
   CONSTRAINT `fk_cost_has_resources_cost1`
     FOREIGN KEY (`idCost`)
-    REFERENCES `mydb`.`cost` (`idCost`)
+    REFERENCES `travian`.`cost` (`idCost`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cost_has_resources_resources1`
     FOREIGN KEY (`idResource`)
-    REFERENCES `mydb`.`resources` (`idResource`)
+    REFERENCES `travian`.`resources` (`idResource`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`player`
+-- Table `travian`.`player`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`player` ;
+DROP TABLE IF EXISTS `travian`.`player` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`player` (
+CREATE TABLE IF NOT EXISTS `travian`.`player` (
   `idplayer` INT UNSIGNED NOT NULL,
   `name` VARCHAR(45) NULL,
   PRIMARY KEY (`idplayer`),
-  UNIQUE INDEX `idplayer_UNIQUE` (`idplayer` ASC) VISIBLE)
+  UNIQUE INDEX `idplayer_UNIQUE` (`idplayer` ASC) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`playerResources`
+-- Table `travian`.`playerResources`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`playerResources` ;
+DROP TABLE IF EXISTS `travian`.`playerResources` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`playerResources` (
+CREATE TABLE IF NOT EXISTS `travian`.`playerResources` (
   `idplayer` INT UNSIGNED NOT NULL,
   `idResource` INT UNSIGNED NOT NULL,
   `count` DECIMAL UNSIGNED ZEROFILL NOT NULL,
   PRIMARY KEY (`idplayer`, `idResource`),
-  INDEX `fk_player_has_resources_resources2_idx` (`idResource` ASC) VISIBLE,
-  INDEX `fk_player_has_resources_player1_idx` (`idplayer` ASC) VISIBLE,
+  INDEX `fk_player_has_resources_resources2_idx` (`idResource` ASC) ,
+  INDEX `fk_player_has_resources_player1_idx` (`idplayer` ASC) ,
   CONSTRAINT `fk_player_has_resources_player1`
     FOREIGN KEY (`idplayer`)
-    REFERENCES `mydb`.`player` (`idplayer`)
+    REFERENCES `travian`.`player` (`idplayer`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_player_has_resources_resources2`
     FOREIGN KEY (`idResource`)
-    REFERENCES `mydb`.`resources` (`idResource`)
+    REFERENCES `travian`.`resources` (`idResource`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`productionField`
+-- Table `travian`.`productionField`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`productionField` ;
+DROP TABLE IF EXISTS `travian`.`productionField` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`productionField` (
+CREATE TABLE IF NOT EXISTS `travian`.`productionField` (
   `idProductionField` INT NOT NULL AUTO_INCREMENT,
   `idResource` INT UNSIGNED NOT NULL,
   `idPlayer` INT UNSIGNED NOT NULL,
@@ -210,45 +210,45 @@ CREATE TABLE IF NOT EXISTS `mydb`.`productionField` (
   `time` INT NULL COMMENT 'How much seconds it takes to upgrade.',
   `level` INT NULL,
   PRIMARY KEY (`idProductionField`, `idResource`, `idPlayer`, `idCity`),
-  INDEX `fk_player_has_resources_resources1_idx` (`idResource` ASC) VISIBLE,
-  INDEX `fk_production_allCities1_idx` (`idPlayer` ASC, `idCity` ASC) VISIBLE,
+  INDEX `fk_player_has_resources_resources1_idx` (`idResource` ASC) ,
+  INDEX `fk_production_allCities1_idx` (`idPlayer` ASC, `idCity` ASC) ,
   CONSTRAINT `fk_player_has_resources_resources1`
     FOREIGN KEY (`idResource`)
-    REFERENCES `mydb`.`resources` (`idResource`)
+    REFERENCES `travian`.`resources` (`idResource`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_production_allCities1`
     FOREIGN KEY (`idPlayer` , `idCity`)
-    REFERENCES `mydb`.`allVillage` (`idPlayer` , `idCity`)
+    REFERENCES `travian`.`allVillage` (`idPlayer` , `idCity`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`resources`
+-- Table `travian`.`resources`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`resources` ;
+DROP TABLE IF EXISTS `travian`.`resources` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`resources` (
+CREATE TABLE IF NOT EXISTS `travian`.`resources` (
   `idResource` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`idResource`),
-  UNIQUE INDEX `idResource_UNIQUE` (`idResource` ASC) VISIBLE,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+  UNIQUE INDEX `idResource_UNIQUE` (`idResource` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`village`
+-- Table `travian`.`village`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`village` ;
+DROP TABLE IF EXISTS `travian`.`village` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`village` (
+CREATE TABLE IF NOT EXISTS `travian`.`village` (
   `idCity` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idCity`),
-  UNIQUE INDEX `idCity_UNIQUE` (`idCity` ASC) VISIBLE)
+  UNIQUE INDEX `idCity_UNIQUE` (`idCity` ASC) )
 ENGINE = InnoDB;
 
 
