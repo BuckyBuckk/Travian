@@ -15,11 +15,7 @@
     // Save array as assocc
     $arr = $result->fetch_all(MYSQLI_ASSOC);
     //var_export($arr);
-    echo "<h3>USER RESOURCES</h3>";
-    echo "<br>IRON:".(int)$arr[0]['count']."<br>".
-            "CLAY:".(int)$arr[1]['count']."<br>".
-            "GRAIN:".(int)$arr[2]['count']."<br>".
-            "WOOD:".(int)$arr[3]['count']."<br>";
+
 
 ?>
 
@@ -41,7 +37,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
-
+<a href="../logout">(logout)</a>
+<?php
+    echo "<h3>USER RESOURCES</h3>";
+    echo "<br>IRON:".(int)$arr[0]['count']."<br>".
+            "CLAY:".(int)$arr[1]['count']."<br>".
+            "GRAIN:".(int)$arr[2]['count']."<br>".
+            "WOOD:".(int)$arr[3]['count']."<br>";
+    ?>
 </body>
 </html>
