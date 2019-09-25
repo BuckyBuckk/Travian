@@ -23,6 +23,7 @@ if (isset($_POST['username']) and isset($_POST['password'])){
     //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
     if ($count == 1 && password_verify($password, $dbpasswordhash)){
         $_SESSION['username'] = $username;
+        $_SESSION['idPlayer'] = $row['idPlayer'];
         $_SESSION['last_login_timestamp'] = time();
         header('location: /resources');
     } 

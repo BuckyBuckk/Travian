@@ -1,8 +1,24 @@
 <?php
-session_start();
-if (!isset($_SESSION['username'])){
-    header('location: /login');    
-}
+    //Start the Session
+    session_start();
+    require('../connect.php');
+
+    if (!isset($_SESSION['username'])){
+        header('location: /login');    
+    }
+
+    // GET USER RESOURCES 
+    $query = $connection->prepare('SELECT * FROM playerresources WHERE idPlayer= ?');
+    $query->bind_param('i', $_SESSION['idPlayer']);
+    $query->execute();
+
+    // Get result
+    $result = $query->get_result();
+
+    // Save array as assocc
+    $arr = $result->fetch_all(MYSQLI_ASSOC);
+    //var_export($arr);
+
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +27,7 @@ if (!isset($_SESSION['username'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Travian - Resources</title>
     <meta name="description" content="Travian Resources">
 
@@ -151,5 +168,12 @@ if (!isset($_SESSION['username'])){
                 </button >
             </ul>
         </div>
+      
+        <?php
+      echo "<h3>USER RESOURCES</h3>";
+      echo "<br>IRON:".(int)$arr[0]['count']."<br>".
+              "CLAY:".(int)$arr[1]['count']."<br>".
+              "GRAIN:".(int)$arr[2]['count']."<br>".
+              "WOOD:".(int)$arr[3]['count']."<br>";
+      ?>
     </div>
-    
