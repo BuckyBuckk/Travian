@@ -9,7 +9,7 @@ if (isset($_POST['username']) and isset($_POST['password'])){
     $username = mysqli_real_escape_string($connection, $_POST['username']);
     $password = password_hash(mysqli_real_escape_string($connection,$_POST['password']), PASSWORD_DEFAULT);
     $email = mysqli_real_escape_string($connection, $_POST['email']);
-	$email = filter_var($inputEmail, FILTER_SANITIZE_EMAIL);
+	$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         if($_POST['password'] == $_POST['repeatPassword']){
@@ -17,21 +17,35 @@ if (isset($_POST['username']) and isset($_POST['password'])){
             $loginSql = $connection->prepare('SELECT * FROM `users` WHERE username= ?');
             $loginSql->bind_param('s',$username);
             $loginSql->execute();
-
-            $result = $loginSql->get_result();
-            $count = $result->num_rows;
-            $row = $result->fetch_assoc();
-            $dbpasswordhash = $row["password"];
-
+            
             //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
-            if ($count == 1 && password_verify($password, $dbpasswordhash)){
-                $_SESSION['username'] = $username;
-                $_SESSION['last_login_timestamp'] = time();
-                header('location: resources');
+            if ($loginSql->get_result()->num_rows === 0){
+
+                $mailSql = $connection->prepare('SELECT * FROM `users` WHERE email= ?');
+				$mailSql->bind_param('s',$email);
+				$mailSql->execute();
+				
+				if ($mailSql->get_result()->num_rows === 0){
+                    $registerSql = $connection->prepare("INSERT INTO `users` (username, password, email) VALUES (?, ?, ?)");
+					$registerSql->bind_param("sss", $username, $password, $email);
+					$registerSql->execute();
+
+					if($registerSql->affected_rows == 1){
+                        $smsg = "User registered succesfully!";
+                    }
+                    else{
+                        $fmsg = "Error registering user!";
+                    }
+
+                }
+                else{
+                    $fmsg = "E-mail already registered!";
+                }
+
             } 
             else{
             //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
-                $fmsg = "Username and password do not match!";
+                $fmsg = "Username already in use!";
             }
         }
         else{
@@ -94,7 +108,7 @@ if (isset($_POST['username']) and isset($_POST['password'])){
             <h2 class="form-signin-heading">Register</h2>
             <input type="text" name="username" class="form-control w-100 my-2 username-field input-lg" placeholder="Username" required autofocus>
             <input type="password" name="password" id="inputPassword" class="form-control w-100 mb-2" placeholder="Password" required>
-            <input type="repeatPassword" name="repeatPassword" id="repeatPassword" class="form-control w-100 mb-2" placeholder="Repeat password" required>
+            <input type="password" name="repeatPassword" id="repeatPassword" class="form-control w-100 mb-2" placeholder="Repeat password" required>
             <input type="email" name="email" id="email" class="form-control w-100 mb-2" placeholder="E-mail" required>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
             <a class="btn btn-lg btn-primary btn-block" href="/login">Login</a>
