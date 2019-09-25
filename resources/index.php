@@ -79,14 +79,14 @@
         <div class="d-flex justify-content-center" id="currentResources">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
-                    100/100
+                    <?php echo (int)$arr[3]['count'] ?>/100
                 </li>
                 <li class="list-group-item">
-                    100/100
+                    <?php echo (int)$arr[1]['count'] ?>/100
                 </li><li class="list-group-item">
-                    100/100
+                    <?php echo (int)$arr[0]['count'] ?>/100
                 </li><li class="list-group-item">
-                    100/100
+                    <?php echo (int)$arr[2]['count'] ?>/100
                 </li>
             </ul>
         </div>
@@ -169,11 +169,5 @@
             </ul>
         </div>
       
-        <?php
-      echo "<h3>USER RESOURCES</h3>";
-      echo "<br>IRON:".(int)$arr[0]['count']."<br>".
-              "CLAY:".(int)$arr[1]['count']."<br>".
-              "GRAIN:".(int)$arr[2]['count']."<br>".
-              "WOOD:".(int)$arr[3]['count']."<br>";
-      ?>
+
     </div>
