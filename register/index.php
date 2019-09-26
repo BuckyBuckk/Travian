@@ -2,7 +2,6 @@
 session_start();
 require('../connect.php');
 
-//3. If the form is submitted or not.
 //3.1 If the form is submitted
 if (isset($_POST['username']) and isset($_POST['password'])){
     //3.1.1 Assigning posted values to variables.
@@ -11,21 +10,26 @@ if (isset($_POST['username']) and isset($_POST['password'])){
     $email = mysqli_real_escape_string($connection, $_POST['email']);
 	$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
+    //Check if email is valid
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+        //Check if the passwords match
         if($_POST['password'] == $_POST['repeatPassword']){
-            //3.1.2 Checking the values are existing in the database or not
+            //3.1.2 Checking if the username is alread taken
             $loginSql = $connection->prepare('SELECT * FROM `users` WHERE username= ?');
             $loginSql->bind_param('s',$username);
             $loginSql->execute();
             
-            //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
             if ($loginSql->get_result()->num_rows === 0){
 
+                //Check if the email is already taken
                 $mailSql = $connection->prepare('SELECT * FROM `users` WHERE email= ?');
 				$mailSql->bind_param('s',$email);
 				$mailSql->execute();
 				
 				if ($mailSql->get_result()->num_rows === 0){
+
+                    //Registeres user
                     $registerSql = $connection->prepare("INSERT INTO `users` (username, password, email) VALUES (?, ?, ?)");
 					$registerSql->bind_param("sss", $username, $password, $email);
 					$registerSql->execute();
@@ -44,7 +48,6 @@ if (isset($_POST['username']) and isset($_POST['password'])){
 
             } 
             else{
-            //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
                 $fmsg = "Username already in use!";
             }
         }

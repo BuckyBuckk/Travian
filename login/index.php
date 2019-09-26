@@ -1,8 +1,8 @@
-<?php  //Start the Session
+<?php 
 session_start();
 require('../connect.php');
 
-//3. If the form is submitted or not.
+
 //3.1 If the form is submitted
 if (isset($_POST['username']) and isset($_POST['password'])){
     //3.1.1 Assigning posted values to variables.
@@ -20,7 +20,7 @@ if (isset($_POST['username']) and isset($_POST['password'])){
     $row = $result->fetch_assoc();
     $dbpasswordhash = $row["password"];
 
-    //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
+    //3.1.2 If the posted values are equal to the database values, then session variables will be set for the user.
     if ($count == 1 && password_verify($password, $dbpasswordhash)){
         $_SESSION['username'] = $username;
         $_SESSION['idPlayer'] = $row['idPlayer'];
@@ -32,14 +32,11 @@ if (isset($_POST['username']) and isset($_POST['password'])){
         $fmsg = "Username and password do not match!";
     }
 }
-//3.1.4 if the user is logged in Greets the user with message
+//3.2 if the user is logged in he is redirected to /resources
 if (isset($_SESSION['username'])){
   $username = $_SESSION['username'];
   header('location: /resources');
   
-}
-else{
-    //3.2 When the user visits the page first time, simple login form will be displayed.
 }
 
 ?>

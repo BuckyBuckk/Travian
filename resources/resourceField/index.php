@@ -1,7 +1,7 @@
 <?php
     //Start the Session
     session_start();
-    require('../connect.php');
+    require($_SERVER['DOCUMENT_ROOT'].'/connect.php');
 
     if (!isset($_SESSION['username'])){
         header('location: /login');    
@@ -28,7 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Travian - Resources</title>
+    <title>Travian - Woodcutter</title>
     <meta name="description" content="Travian Resources">
 
     <link rel="icon" href="/favicon.ico">
@@ -99,79 +99,21 @@
 
     <!-- Resource Fields -->
     <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-8">
-                <h1 class="text-center"> <?php echo $_SESSION['username']; //tuki more bit village name ?> </h1>
-                <div class="d-flex justify-content-center" id="resourceRow1">
-                    <div class="list-group list-group-horizontal">
-                        <button class="list-group-item" style="background-color:Green" onclick='window.location.href="resourceField?rfid=1"'>
-                            10
-                        </button>
-                        <button class="list-group-item" style="background-color:Green" >
-                            1
-                        </button>
-                        <button class="list-group-item" style="background-color:Green" >
-                            1
-                        </button>
-                        <button class="list-group-item" style="background-color:Green" >
-                            1
-                        </button>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center" id="resourceRow2">
-                    <div class="list-group list-group-horizontal">
-                            <button  class="list-group-item " style="background-color:orange">
-                                1
-                            </button >
-                            <button  class="list-group-item " style="background-color:orange">
-                                1
-                            </button >
-                            <button  class="list-group-item " style="background-color:orange">
-                                1
-                            </button >
-                            <button  class="list-group-item " style="background-color:orange">
-                                1
-                            </button >
-                        </div>
-                    </div>
-                <div class="d-flex justify-content-center" id="resourceRow3">
-                    <div class="list-group list-group-horizontal">
-                        <button  class="list-group-item " style="background-color:silver">
-                            1
-                        </button >
-                        <button  class="list-group-item " style="background-color:silver">
-                            1
-                        </button >
-                        <button  class="list-group-item " style="background-color:silver">
-                            1
-                        </button >
-                        <button  class="list-group-item " style="background-color:silver">
-                            1
-                        </button >
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center" id="resourceRow4">
-                    <div class="list-group list-group-horizontal">
-                        <button  class="list-group-item " style="background-color:yellow">
-                            1
-                        </button >
-                        <button  class="list-group-item " style="background-color:yellow">
-                            1
-                        </button >
-                        <button  class="list-group-item " style="background-color:yellow">
-                            1
-                        </button >
-                        <button  class="list-group-item " style="background-color:yellow">
-                            1
-                        </button >
-                        <button  class="list-group-item " style="background-color:yellow">
-                            1
-                        </button >
-                        <button  class="list-group-item " style="background-color:yellow">
-                            1
-                        </button >
-                    </ul>
-                </div>
-            </div>
+        <div class="justify-content-center text-center">
+            <h1> <?php //tuki more bit resourceField name in level glede na rfid ?> Woodcutter Level 1 </h1><br />
+            <h6>Your population`s food is produced here. By increasing the farm`s level you increase its crop production. </h6> <br />
+            <h5> <p><?php //current production glede na level ?>Current production:        200 per hour</p></h5>
+            <h5> <p><?php //production glede na level+1 ?>Production at level 2:        300 per hour</p></h5>
+            <br />
+            <h4> <p><?php //Cost upgrada na level+1 ?>Cost for upgrading to Level 2:</p></h4>
+            <h5> <p><?php //Cost upgrada na level+1 ?>
+                <img style="width: 1.5rem;height: 1rem;" src="/img/wood.gif"> 40 |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/clay.gif"> 100 |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/iron.gif"> 50 |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/crop.gif"> 60 |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/consum.gif"> 2 |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/clock.gif"> 0:00:03</p>
+            </h5>
+            <h6> <a <?php if(0){echo 'href="#" onclick="test()"';} //check if theres enough resources to upgrade?> >Upgrade to Level 2</a> </h6>
         </div>
     </div>
