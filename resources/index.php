@@ -96,82 +96,134 @@
 
     <div class="container" style="min-height:30px"></div>
 
-
     <!-- Resource Fields -->
     <div class="container">
-        <div class="row d-flex justify-content-center">
+        <div class="row">
             <div class="col-md-8">
-                <h1 class="text-center"> <?php echo $_SESSION['username']; //tuki more bit village name ?> </h1>
+                <p class="h2 text-center"> <?php echo $_SESSION['username']." (capital)"; //tuki more bit village name ?></p>
                 <div class="d-flex justify-content-center" id="resourceRow1">
-                    <div class="list-group list-group-horizontal">
-                        <button class="list-group-item" style="background-color:Green" onclick='window.location.href="resourceField?rfid=1"'>
+                    <div class="list-group list-group-horizontal w-50" style="height:100px">
+                        <button class="list-group-item w-100" style="background-color:Green" onclick='window.location.href="resourceField?rfid=1"'>
                             10
                         </button>
-                        <button class="list-group-item" style="background-color:Green" >
+                        <button class="list-group-item w-100" style="background-color:Green" onclick='window.location.href="resourceField?rfid=2"'>
                             1
                         </button>
-                        <button class="list-group-item" style="background-color:Green" >
+                        <button class="list-group-item w-100" style="background-color:Green" onclick='window.location.href="resourceField?rfid=3"'>
                             1
                         </button>
-                        <button class="list-group-item" style="background-color:Green" >
+                        <button class="list-group-item w-100" style="background-color:Green" onclick='window.location.href="resourceField?rfid=4"'>
                             1
                         </button>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center" id="resourceRow2">
-                    <div class="list-group list-group-horizontal">
-                            <button  class="list-group-item " style="background-color:orange">
-                                1
-                            </button >
-                            <button  class="list-group-item " style="background-color:orange">
-                                1
-                            </button >
-                            <button  class="list-group-item " style="background-color:orange">
-                                1
-                            </button >
-                            <button  class="list-group-item " style="background-color:orange">
-                                1
-                            </button >
-                        </div>
+                    <div class="list-group list-group-horizontal w-50" style="height:100px">
+                        <button  class="list-group-item w-100" style="background-color:orange" onclick='window.location.href="resourceField?rfid=5"'>
+                            1
+                        </button >
+                        <button  class="list-group-item w-100" style="background-color:orange" onclick='window.location.href="resourceField?rfid=6"'>
+                            1
+                        </button >
+                        <button  class="list-group-item w-100" style="background-color:orange" onclick='window.location.href="resourceField?rfid=7"'>
+                            1
+                        </button >
+                        <button  class="list-group-item w-100" style="background-color:orange" onclick='window.location.href="resourceField?rfid=8"'>
+                            1
+                        </button >
                     </div>
+                </div>
                 <div class="d-flex justify-content-center" id="resourceRow3">
-                    <div class="list-group list-group-horizontal">
-                        <button  class="list-group-item " style="background-color:silver">
+                    <div class="list-group list-group-horizontal w-50" style="height:100px">
+                        <button  class="list-group-item w-100" style="background-color:silver" onclick='window.location.href="resourceField?rfid=9"'>
                             1
                         </button >
-                        <button  class="list-group-item " style="background-color:silver">
+                        <button  class="list-group-item w-100" style="background-color:silver" onclick='window.location.href="resourceField?rfid=10"'>
                             1
                         </button >
-                        <button  class="list-group-item " style="background-color:silver">
+                        <button  class="list-group-item w-100" style="background-color:silver" onclick='window.location.href="resourceField?rfid=11"'>
                             1
                         </button >
-                        <button  class="list-group-item " style="background-color:silver">
+                        <button  class="list-group-item w-100" style="background-color:silver" onclick='window.location.href="resourceField?rfid=12"'>
                             1
                         </button >
                     </div>
                 </div>
                 <div class="d-flex justify-content-center" id="resourceRow4">
-                    <div class="list-group list-group-horizontal">
-                        <button  class="list-group-item " style="background-color:yellow">
+                    <div class="list-group list-group-horizontal w-50" style="height:100px">
+                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=13"'>
                             1
                         </button >
-                        <button  class="list-group-item " style="background-color:yellow">
+                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=14"'>
                             1
                         </button >
-                        <button  class="list-group-item " style="background-color:yellow">
+                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=15"'>
                             1
                         </button >
-                        <button  class="list-group-item " style="background-color:yellow">
+                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=16"'>
                             1
                         </button >
-                        <button  class="list-group-item " style="background-color:yellow">
+                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=17"'>
                             1
                         </button >
-                        <button  class="list-group-item " style="background-color:yellow">
+                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=18"'>
                             1
                         </button >
-                    </ul>
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <p></p>
+                <p class="h3">Troop Movements:</p>
+                <div class="d-flex justify-content-between">
+                    <h5 style="color:Red"><img style="width: 1.2rem;" src="/img/att_inc.gif"><strong> 1 Attack<strong></h5>
+                    <h5>in 0:15:06 hrs.</h5>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <h5 style="color:Orange"><img style="width: 1.2rem;" src="/img/att_out.gif"><strong> 2 Attacks<strong></h5>
+                    <h5>in 1:05:35 hrs.</h5>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <h5 style="color:Green"><img style="width: 1.2rem;" src="/img/def_1.gif"><strong> 45 Reinf.<strong></h5>
+                    <h5>in 0:55:30 hrs.</h5>
+                </div>
+                <p></p>
+                <p class="h3">Production:</p>
+                <div class="d-flex justify-content-between">
+                    <h5><img style="width: 1.5rem;height: 1rem;" src="/img/wood.gif"> Wood:</h5>
+                    <h5><strong>200</strong> per hour</h5>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <h5><img style="width: 1.5rem;height: 1rem;" src="/img/clay.gif"> Clay:</h5>
+                    <h5><strong>200</strong> per hour</h5>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <h5><img style="width: 1.5rem;height: 1rem;" src="/img/iron.gif"> Iron:</h5>
+                    <h5><strong>200</strong> per hour</h5>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <h5><img style="width: 1.5rem;height: 1rem;" src="/img/crop.gif"> Crop:</h5>
+                    <h5><strong>200</strong> per hour</h5>
+                </div>
+                <p></p>
+                <p class="h3">Troops:</p>
+                <p class="h5">
+                <?php if(1){
+                    echo '
+                    <div class="d-flex justify-content-center">
+                        <h5><img src="/img/maceman.gif"> 48 Macemen</h5>
+                    </div>
+                    ';
+                } // check troops from database
+                else{
+                    echo '
+                    <div class="text-center">
+                    <h5>None</h5>
+                    </div>
+                    ';
+                }
+                ?>
+                </p>
             </div>
         </div>
     </div>

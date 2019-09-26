@@ -24,6 +24,7 @@
         - Troops
         - Troops leaving and arriving (time)
         - Buildings that are being built (name, time, cancel)
+        - Villages
     - Village:
         - Barracks:        
             - Troops that can be trained
