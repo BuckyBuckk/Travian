@@ -102,7 +102,84 @@
         <div class="justify-content-center text-center">
             <h1> <?php //tuki more bit villageBuilding name in level glede na rfid ?>Barracks Level 1</h1><br />
             <h6>All foot soldier are trained in the barracks. The higher the level of the barracks, the faster the troops are trained.</h6> <br />
-            <h5> <p><?php //current training time glede na level ?>Current training time:        100 percent</p></h5>
+            <table class="table table-bordered w-75 m-auto">
+                <thead >
+                    <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col" style="max-width:150px">Quantity</th>
+                    <th scope="col">Max</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="align-middle">
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/maceman.gif">Maceman (Available:13)
+                            <br />
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/wood.gif"> 95 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/clay.gif"> 75 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/iron.gif"> 40 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/crop.gif"> 40 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/consum.gif"> 1 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/clock.gif"> 0:00:03
+                        </th>
+                        <td class="align-middle">
+                            <div class="input-group input-group-sm mb-3 align-middle">
+                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <a href="#" style="color:green"><strong>(6969)</strong></a>
+                        </td>
+                    </tr>
+                    <tr>
+                    <th scope="row" class="align-middle">
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/maceman.gif">Spearman (Available:0)
+                            <br />
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/wood.gif"> 145 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/clay.gif"> 75 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/iron.gif"> 40 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/crop.gif"> 40 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/consum.gif"> 1 |
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/clock.gif"> 0:00:03
+                        </th>
+                        <td class="align-middle">
+                            <div class="input-group input-group-sm mb-3 align-middle">
+                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <a href="#" style="color:green"><strong>(4200)</strong></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn-group mt-2 mb-5 w-75" role="group" aria-label="Train">
+                <button type="button" class="btn btn-success w-75 m-auto mt-3">Train</button>
+            </div>
+            <table class="table table-bordered w-75 m-auto">
+                <thead >
+                    <tr>
+                    <th scope="col">Training</th>
+                    <th scope="col" style="max-width:150px">Duration</th>
+                    <th scope="col">Finished</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="align-middle">
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/maceman.gif">500 Macemen
+                            <br />
+                        </th>
+                        <td class="align-middle">
+                            0:34:12
+                        </td>
+                        <td class="align-middle">
+                            13:22:01
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5 class="mt-5"> <p><?php //current training time glede na level ?>Current training time:        100 percent</p></h5>
             <h5> <p><?php //training time glede na level+1 ?>Training time at level 2:        96 percent</p></h5>
             <br />
             <h4> <p><?php //Cost upgrada na level+1 ?>Cost for upgrading to Level 2:</p></h4>
