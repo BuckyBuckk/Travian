@@ -34,7 +34,7 @@
     <link rel="icon" href="/favicon.ico">
     <link href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="/hexcss.css" type="text/css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -100,76 +100,200 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <p class="h2 text-center"> <?php echo $_SESSION['username']." (capital)"; //tuki more bit village name ?></p>
-                <div class="d-flex justify-content-center" id="resourceRow1">
-                    <div class="list-group list-group-horizontal w-50" style="height:100px">
-                        <button class="list-group-item w-100" style="background-color:Green" onclick='window.location.href="resourceField?rfid=1"'>
-                            10
-                        </button>
-                        <button class="list-group-item w-100" style="background-color:Green" onclick='window.location.href="resourceField?rfid=2"'>
-                            1
-                        </button>
-                        <button class="list-group-item w-100" style="background-color:Green" onclick='window.location.href="resourceField?rfid=3"'>
-                            1
-                        </button>
-                        <button class="list-group-item w-100" style="background-color:Green" onclick='window.location.href="resourceField?rfid=4"'>
-                            1
-                        </button>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center" id="resourceRow2">
-                    <div class="list-group list-group-horizontal w-50" style="height:100px">
-                        <button  class="list-group-item w-100" style="background-color:orange" onclick='window.location.href="resourceField?rfid=5"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:orange" onclick='window.location.href="resourceField?rfid=6"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:orange" onclick='window.location.href="resourceField?rfid=7"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:orange" onclick='window.location.href="resourceField?rfid=8"'>
-                            1
-                        </button >
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center" id="resourceRow3">
-                    <div class="list-group list-group-horizontal w-50" style="height:100px">
-                        <button  class="list-group-item w-100" style="background-color:silver" onclick='window.location.href="resourceField?rfid=9"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:silver" onclick='window.location.href="resourceField?rfid=10"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:silver" onclick='window.location.href="resourceField?rfid=11"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:silver" onclick='window.location.href="resourceField?rfid=12"'>
-                            1
-                        </button >
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center" id="resourceRow4">
-                    <div class="list-group list-group-horizontal w-50" style="height:100px">
-                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=13"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=14"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=15"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=16"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=17"'>
-                            1
-                        </button >
-                        <button  class="list-group-item w-100" style="background-color:yellow" onclick='window.location.href="resourceField?rfid=18"'>
-                            1
-                        </button >
-                    </div>
+                <p class="h2 text-center"><strong> <?php echo $_SESSION['username']." (capital)"; //tuki more bit village name ?></strong></p>
+                <div class="grid">
+                    <ul id="hexGrid" style="padding-left: 0px;">
+                        <li class="hex">
+                            <div class="hexIn">
+                            </div>
+                        </li>      
+                        <!-- Row 1 -->
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Green'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Orange'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Silver'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            </div>
+                        </li>
+                        <!-- Row 2 -->
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Silver'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Green'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <!-- Row 3 -->
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Orange'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="/village">
+                                <div class='img' style='background-color:White'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'>
+                                    <p style="top:35%;opacity:1;color:black">1</p>
+                                </div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Orange'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <!-- Row 4 -->
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Green'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Silver'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <!-- Row 5 -->
+                        <li class="hex">
+                            <div class="hexIn">
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Silver'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Orange'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Green'></div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="col-md-3 text-center">
