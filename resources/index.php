@@ -1,7 +1,7 @@
 <?php
     //Start the Session
     session_start();
-    require('../connect.php');
+    require_once('../connect.php');
 
     if (!isset($_SESSION['username'])){
         header('location: /login');    
@@ -96,18 +96,19 @@
 
     <div class="container" style="min-height:30px"></div>
 
-    <!-- Resource Fields -->
+    <!-- Main Body -->
     <div class="container">
         <div class="row">
+            <!-- Resource Fields -->
             <div class="col-md-8">
                 <p class="h2 text-center"><strong> <?php echo $_SESSION['username']." (capital)"; //tuki more bit village name ?></strong></p>
                 <div class="grid">
                     <ul id="hexGrid" style="padding-left: 0px;">
+                        <!-- Row 1 -->
                         <li class="hex">
                             <div class="hexIn">
                             </div>
-                        </li>      
-                        <!-- Row 1 -->
+                        </li>
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
@@ -208,7 +209,7 @@
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
                                 <div class='img' style='background-color:Gold'>
-                                    <p style="top:35%;opacity:1;color:black">1</p>
+                                    <p style="top:35%;font-weight:600;opacity:1;color:black">1</p>
                                 </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
@@ -296,6 +297,8 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- Troop Movements and other stuff on the right -->
             <div class="col-md-3 text-center">
                 <p></p>
                 <p class="h3">Troop Movements:</p>
