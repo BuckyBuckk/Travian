@@ -2,7 +2,7 @@
 #hexGrid {
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
+  width: 53%;
   margin: 0 auto;
   overflow: hidden;
   font-family: sans-serif;

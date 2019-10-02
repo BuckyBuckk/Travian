@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require('../connect.php');
+require_once('../connect.php');
 
 
 //3.1 If the form is submitted

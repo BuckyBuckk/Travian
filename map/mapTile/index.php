@@ -1,7 +1,7 @@
 <?php
     //Start the Session
     session_start();
-    require_once('../connect.php');
+    require_once('../../connect.php');
 
     if (!isset($_SESSION['username'])){
         header('location: /login');    
@@ -28,8 +28,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Travian - Resources</title>
-    <meta name="description" content="Travian Resources">
+    <title>Travian - Map Tile</title>
+    <meta name="description" content="Travian Tile">
 
     <link rel="icon" href="/favicon.ico">
     <link href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
@@ -54,10 +54,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/resources">Resources</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/village">Village</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/map">Map</a>
                 </li>
                 <li class="nav-item">
@@ -99,7 +99,7 @@
     <!-- Main Body -->
     <div class="container">
         <div class="row">
-            <!-- Village Buildings -->
+            <!-- Village Fields -->
             <div class="col-md-8">
                 <p class="h2 text-center"><strong> <?php echo $_SESSION['username']." (capital)"; //tuki more bit village name ?></strong></p>
                 <div class="grid">
@@ -111,8 +111,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Green'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -120,8 +120,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Orange'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -129,8 +129,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Silver'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -143,8 +143,8 @@
                         <!-- Row 2 -->
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Silver'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -152,8 +152,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -161,8 +161,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -170,8 +170,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Green'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -180,8 +180,8 @@
                         <!-- Row 3 -->
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Orange'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -189,8 +189,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -198,10 +198,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:DarkSlateGray'>
-                                    <p style="top:36%;font-weight:600;opacity:1;color:black">1</p>
-                                </div>
+                            <a class="hexLink" href="/village">
+                                <div class='img' style='background-color:White'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -209,8 +207,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -218,8 +216,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Orange'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -228,8 +226,8 @@
                         <!-- Row 4 -->
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Green'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -237,8 +235,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -246,8 +244,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Gold'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -255,8 +253,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Silver'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -269,8 +267,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Silver'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -278,8 +276,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Orange'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -287,8 +285,8 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="villageBuilding?vbid=1">
-                                <div class='img' style='background-color:SlateGray'></div>
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:Green'></div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -297,60 +295,43 @@
                     </ul>
                 </div>
             </div>
-            
-            <!-- Troop Movements and other stuff on the right -->
+
+            <!-- Village info -->
             <div class="col-md-3 text-center">
                 <p></p>
-                <p class="h3">Troop Movements:</p>
+                <p class="h3">Player info:</p>
                 <div class="d-flex justify-content-between">
-                    <h5 style="color:Red"><img style="width: 1.2rem;" src="/img/att_inc.gif"><strong> 1 Attack<strong></h5>
-                    <h5>in 0:15:06 hrs.</h5>
+                    <h5><strong>Tribe:<strong></h5>
+                    <h5>Teutons</h5>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <h5 style="color:Orange"><img style="width: 1.2rem;" src="/img/att_out.gif"><strong> 2 Attacks<strong></h5>
-                    <h5>in 1:05:35 hrs.</h5>
+                    <h5><strong>Alliance:<strong></h5>
+                    <a href="" class="h5">Santas</a>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <h5 style="color:Green"><img style="width: 1.2rem;" src="/img/def_1.gif"><strong> 45 Reinf.<strong></h5>
-                    <h5>in 0:55:30 hrs.</h5>
-                </div>
-                <p></p>
-                <p class="h3">Production:</p>
-                <div class="d-flex justify-content-between">
-                    <h5><img style="width: 1.5rem;height: 1rem;" src="/img/wood.gif"> Wood:</h5>
-                    <h5><strong>200</strong> per hour</h5>
+                    <h5><strong>Owner:<strong></h5>
+                    <a href="" class="h5">admin</a>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <h5><img style="width: 1.5rem;height: 1rem;" src="/img/clay.gif"> Clay:</h5>
-                    <h5><strong>200</strong> per hour</h5>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <h5><img style="width: 1.5rem;height: 1rem;" src="/img/iron.gif"> Iron:</h5>
-                    <h5><strong>200</strong> per hour</h5>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <h5><img style="width: 1.5rem;height: 1rem;" src="/img/crop.gif"> Crop:</h5>
-                    <h5><strong>200</strong> per hour</h5>
+                    <h5><strong>Population:<strong></h5>
+                    <h5>350</h5>
                 </div>
                 <p></p>
-                <p class="h3">Troops:</p>
-                <p class="h5">
-                <?php if(1){
-                    echo '
-                    <div class="d-flex justify-content-center">
-                        <h5><img src="/img/maceman.gif"> 48 Macemen</h5>
-                    </div>
-                    ';
-                } // check troops from database
-                else{
-                    echo '
-                    <div class="text-center">
-                    <h5>None</h5>
-                    </div>
-                    ';
-                }
-                ?>
-                </p>
+                <p class="h3">Reports:</p>
+                <div class="d-flex justify-content-center">
+                    <a href="" class="h5"><strong>3.10.2019</strong></a>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="" class="h5"><strong>2.10.2019</strong></a>
+                </div>
+                <p></p>
+                <p class="h3">Options:</p>
+                <div class="d-flex justify-content-center">
+                    <a href="" class="h5"><strong>Send Troops</strong></a>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="" class="h5"><strong>Send Merchants</strong></a>
+                </div>
             </div>
         </div>
     </div>
