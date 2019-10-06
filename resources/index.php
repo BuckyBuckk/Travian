@@ -17,7 +17,20 @@
 
     // Save array as assocc
     $arr = $result->fetch_all(MYSQLI_ASSOC);
-    //var_export($arr);
+/* 
+    // GET FIELDS INTO ARRAY
+    $query = $connection->prepare('SELECT * FROM village v JOIN productionfield pd ON v.idCity=pd.idCity WHERE idPlayer=? AND idCity=?');
+    $query->bind_param('i', $_SESSION['idPlayer']);
+    $query->bind_param('i',0);
+    $query->execute();
+
+    $result = $query->get_result();
+    
+    // Save array as assocc
+    $city = $result->fetch_all(MYSQLI_ASSOC); */
+
+    $upgrade = true;
+    $time = 90;
 
 ?>
 
@@ -79,16 +92,34 @@
         <div class="d-flex justify-content-center" id="currentResources">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif"> <?php echo (int)$arr[3]['count'] ?>/100
+
+                    <?php if(isset($arr[3])){ echo (int)$arr[3]['count'];}else{echo "<span style='color:red'>Check DB connection!</span>";} 
+                    ?>
+                    /100
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/clay.gif"> <?php echo (int)$arr[1]['count'] ?>/100
-                </li>
-                <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/iron.gif"> <?php echo (int)$arr[0]['count'] ?>/100
-                </li>
-                <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif"> <?php echo (int)$arr[2]['count'] ?>/100
+                    <?php 
+                        if(isset($arr[1])){ echo (int)$arr[1]['count'];}else{echo "<span style='color:red'>Check DB connection!</span>";} 
+                        ?>
+                    /100
+                </li><li class="list-group-item">
+                    <?php 
+                        if(isset($arr[0])){ 
+                            echo (int)$arr[0]['count'];
+                        }else{
+                            echo "<span style='color:red'>Check DB connection!</span>";
+                        } 
+                    ?>
+                    /100
+                </li><li class="list-group-item">
+                    <?php 
+                        if(isset($arr[2])){ 
+                            echo (int)$arr[2]['count'];
+                        }else{
+                            echo "<span style='color:red'>Check DB connection!</span>";
+                        } 
+                    ?>
+                    /100
                 </li>
             </ul>
         </div>
