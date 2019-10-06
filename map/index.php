@@ -79,16 +79,16 @@
         <div class="d-flex justify-content-center" id="currentResources">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
-                    <?php echo (int)$arr[3]['count'] ?>/100
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif"> <?php echo (int)$arr[3]['count'] ?>/100
                 </li>
                 <li class="list-group-item">
-                    <?php echo (int)$arr[1]['count'] ?>/100
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/clay.gif"> <?php echo (int)$arr[1]['count'] ?>/100
                 </li>
                 <li class="list-group-item">
-                    <?php echo (int)$arr[0]['count'] ?>/100
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/iron.gif"> <?php echo (int)$arr[0]['count'] ?>/100
                 </li>
                 <li class="list-group-item">
-                    <?php echo (int)$arr[2]['count'] ?>/100
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif"> <?php echo (int)$arr[2]['count'] ?>/100
                 </li>
             </ul>
         </div>
