@@ -1,14 +1,14 @@
 <?php
     //Start the Session
     session_start();
-    require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
+    require_once('../../connect.php');
 
     if (!isset($_SESSION['username'])){
         header('location: /login');    
     }
 
     // GET USER RESOURCES 
-    $query = $connection->prepare('SELECT * FROM playerresources WHERE idPlayer= ?');
+    $query = $connection->prepare('SELECT * FROM playerresources WHERE idVillage= ?');
     $query->bind_param('i', $_SESSION['idPlayer']);
     $query->execute();
 

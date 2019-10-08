@@ -2,22 +2,20 @@
     //Start the Session
     session_start();
     require_once('../connect.php');
+    require_once('../refreshResources.php');
 
     if (!isset($_SESSION['username'])){
         header('location: /login');    
     }
 
-    // GET USER RESOURCES 
-    $query = $connection->prepare('SELECT * FROM playerresources WHERE idPlayer= ?');
-    $query->bind_param('i', $_SESSION['idPlayer']);
-    $query->execute();
 
-    // Get result
-    $result = $query->get_result();
+    $getMaxRes = $connection->prepare('SELECT * FROM villagemaxresources WHERE idVillage= ?');
+    $getMaxRes->bind_param('i', $_SESSION['idPlayer']);
+    $getMaxRes->execute();    
+    $resultMaxRes = $getMaxRes->get_result();
 
-    // Save array as assocc
-    $arr = $result->fetch_all(MYSQLI_ASSOC);
-    //var_export($arr);
+    $maxRes = $resultMaxRes->fetch_row();
+    $getMaxRes->close();
 
 ?>
 
@@ -79,16 +77,16 @@
         <div class="d-flex justify-content-center" id="currentResources">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif"> <?php echo (int)$arr[3]['count'] ?>/100
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif"> <?php echo (int)$currentRes[1]."/".(int)$maxRes[1] ?>
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/clay.gif"> <?php echo (int)$arr[1]['count'] ?>/100
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/clay.gif"> <?php echo (int)$currentRes[2]."/".(int)$maxRes[2] ?>
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/iron.gif"> <?php echo (int)$arr[0]['count'] ?>/100
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/iron.gif"> <?php echo (int)$currentRes[3]."/".(int)$maxRes[3] ?>
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif"> <?php echo (int)$arr[2]['count'] ?>/100
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif"> <?php echo (int)$currentRes[4]."/".(int)$maxRes[4] ?>
                 </li>
             </ul>
         </div>
@@ -318,19 +316,19 @@
                 <p class="h3">Production:</p>
                 <div class="d-flex justify-content-between">
                     <h5><img style="width: 1.5rem;height: 1rem;" src="/img/wood.gif"> Wood:</h5>
-                    <h5><strong>200</strong> per hour</h5>
+                    <h5><strong><?php echo (int)$Production[1] ?></strong> per hour</h5>
                 </div>
                 <div class="d-flex justify-content-between">
                     <h5><img style="width: 1.5rem;height: 1rem;" src="/img/clay.gif"> Clay:</h5>
-                    <h5><strong>200</strong> per hour</h5>
+                    <h5><strong><?php echo (int)$Production[2] ?></strong> per hour</h5>
                 </div>
                 <div class="d-flex justify-content-between">
                     <h5><img style="width: 1.5rem;height: 1rem;" src="/img/iron.gif"> Iron:</h5>
-                    <h5><strong>200</strong> per hour</h5>
+                    <h5><strong><?php echo (int)$Production[3] ?></strong> per hour</h5>
                 </div>
                 <div class="d-flex justify-content-between">
                     <h5><img style="width: 1.5rem;height: 1rem;" src="/img/crop.gif"> Crop:</h5>
-                    <h5><strong>200</strong> per hour</h5>
+                    <h5><strong><?php echo (int)$Production[4] ?></strong> per hour</h5>
                 </div>
                 <p></p>
                 <p class="h3">Troops:</p>

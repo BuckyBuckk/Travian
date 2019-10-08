@@ -8,7 +8,7 @@
     }
 
     // GET USER RESOURCES 
-    $query = $connection->prepare('SELECT * FROM playerresources WHERE idPlayer= ?');
+    $query = $connection->prepare('SELECT * FROM playerresources WHERE idVillage= ?');
     $query->bind_param('i', $_SESSION['idPlayer']);
     $query->execute();
 
