@@ -1,8 +1,8 @@
 <?php
     //Start the Session
     session_start();
-    require_once('../connect.php');
-    require_once('../refreshResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
 
     if (!isset($_SESSION['username'])){
         header('location: /login');    

@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once('../connect.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
 
 
 //3.1 If the form is submitted

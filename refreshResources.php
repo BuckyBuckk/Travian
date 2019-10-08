@@ -1,5 +1,5 @@
 <?php
-    require_once('connect.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
 
     if (!isset($_SESSION['username'])){
         header('location: /login');    
