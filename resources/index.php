@@ -68,7 +68,6 @@
         <div class="d-flex justify-content-center" id="currentResources">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
-<<<<<<< HEAD
                     <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif"> <?php echo (int)$currentRes[1]."/".(int)$maxRes[1] ?>
                 </li>
                 <li class="list-group-item">
@@ -79,36 +78,7 @@
                 </li>
                 <li class="list-group-item">
                     <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif"> <?php echo (int)$currentRes[4]."/".(int)$maxRes[4] ?>
-=======
 
-                    <?php if(isset($arr[3])){ echo (int)$arr[3]['count'];}else{echo "<span style='color:red'>Check DB connection!</span>";} 
-                    ?>
-                    /100
-                </li>
-                <li class="list-group-item">
-                    <?php 
-                        if(isset($arr[1])){ echo (int)$arr[1]['count'];}else{echo "<span style='color:red'>Check DB connection!</span>";} 
-                        ?>
-                    /100
-                </li><li class="list-group-item">
-                    <?php 
-                        if(isset($arr[0])){ 
-                            echo (int)$arr[0]['count'];
-                        }else{
-                            echo "<span style='color:red'>Check DB connection!</span>";
-                        } 
-                    ?>
-                    /100
-                </li><li class="list-group-item">
-                    <?php 
-                        if(isset($arr[2])){ 
-                            echo (int)$arr[2]['count'];
-                        }else{
-                            echo "<span style='color:red'>Check DB connection!</span>";
-                        } 
-                    ?>
-                    /100
->>>>>>> 57a802dbbfb6e45fae4f6f8a3433f7f12b832d3f
                 </li>
             </ul>
         </div>
