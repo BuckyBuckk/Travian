@@ -8,15 +8,6 @@
         header('location: /login');    
     }
 
-
-    $getMaxRes = $connection->prepare('SELECT * FROM villagemaxresources WHERE idVillage= ?');
-    $getMaxRes->bind_param('i', $_SESSION['idPlayer']);
-    $getMaxRes->execute();    
-    $resultMaxRes = $getMaxRes->get_result();
-
-    $maxRes = $resultMaxRes->fetch_row();
-    $getMaxRes->close();
-
 ?>
 
 <!DOCTYPE html>
