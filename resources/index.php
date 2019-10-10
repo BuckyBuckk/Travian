@@ -1,13 +1,17 @@
 <?php
     //Start the Session
     session_start();
-    require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
-
     if (!isset($_SESSION['username'])){
         header('location: /login');    
     }
 
+    require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsLevel.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsType.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/calculateProduction.php');
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -102,7 +106,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Green'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[1]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[1]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -111,7 +117,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Orange'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[2]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[2]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -120,7 +128,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Silver'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[3]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[3]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -134,72 +144,8 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Silver'></div>
-                                <h1 id="demo1"></h1>
-                                <p id="demo2"></p>
-                            </a>
-                            </div>
-                        </li>
-                        <li class="hex">
-                            <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Gold'></div>
-                                <h1 id="demo1"></h1>
-                                <p id="demo2"></p>
-                            </a>
-                            </div>
-                        </li>
-                        <li class="hex">
-                            <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Gold'></div>
-                                <h1 id="demo1"></h1>
-                                <p id="demo2"></p>
-                            </a>
-                            </div>
-                        </li>
-                        <li class="hex">
-                            <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Green'></div>
-                                <h1 id="demo1"></h1>
-                                <p id="demo2"></p>
-                            </a>
-                            </div>
-                        </li>
-                        <!-- Row 3 -->
-                        <li class="hex">
-                            <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Orange'></div>
-                                <h1 id="demo1"></h1>
-                                <p id="demo2"></p>
-                            </a>
-                            </div>
-                        </li>
-                        <li class="hex">
-                            <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Gold'></div>
-                                <h1 id="demo1"></h1>
-                                <p id="demo2"></p>
-                            </a>
-                            </div>
-                        </li>
-                        <li class="hex">
-                            <div class="hexIn">
-                            <a class="hexLink" href="/village">
-                                <div class='img' style='background-color:White'></div>
-                                <h1 id="demo1"></h1>
-                                <p id="demo2"></p>
-                            </a>
-                            </div>
-                        </li>
-                        <li class="hex">
-                            <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Gold'>
-                                    <p style="top:35%;font-weight:600;opacity:1;color:black">1</p>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[4]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[4]; ?></p>
                                 </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
@@ -209,7 +155,87 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Orange'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[5]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[5]; ?></p>
+                                </div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:<?php echo $resFieldColor[6]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[6]; ?></p>
+                                </div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:<?php echo $resFieldColor[7]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[7]; ?></p>
+                                </div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <!-- Row 3 -->
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:<?php echo $resFieldColor[8]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[8]; ?></p>
+                                </div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:<?php echo $resFieldColor[9]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[9]; ?></p>
+                                </div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="/village">
+                                <div class='img' style='background-color:White'>
+                                    <p style="top:35%;opacity:1;color:black;">Village</p>
+                                </div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:<?php echo $resFieldColor[10]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[10]; ?></p>
+                                </div>
+                                <h1 id="demo1"></h1>
+                                <p id="demo2"></p>
+                            </a>
+                            </div>
+                        </li>
+                        <li class="hex">
+                            <div class="hexIn">
+                            <a class="hexLink" href="resourceField?rfid=1">
+                                <div class='img' style='background-color:<?php echo $resFieldColor[11]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[11]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -219,7 +245,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Green'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[12]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[12]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -228,7 +256,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Gold'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[13]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[13]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -237,7 +267,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Gold'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[14]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[14]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -246,7 +278,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Silver'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[15]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[15]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -260,7 +294,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Silver'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[16]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[16]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -269,7 +305,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Orange'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[17]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[17]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -278,7 +316,9 @@
                         <li class="hex">
                             <div class="hexIn">
                             <a class="hexLink" href="resourceField?rfid=1">
-                                <div class='img' style='background-color:Green'></div>
+                                <div class='img' style='background-color:<?php echo $resFieldColor[18]; ?>'>
+                                    <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[18]; ?></p>
+                                </div>
                                 <h1 id="demo1"></h1>
                                 <p id="demo2"></p>
                             </a>
@@ -293,15 +333,15 @@
                 <p></p>
                 <p class="h3">Troop Movements:</p>
                 <div class="d-flex justify-content-between">
-                    <h5 style="color:Red"><img style="width: 1.2rem;" src="/img/att_inc.gif"><strong> 1 Attack<strong></h5>
+                    <h5 style="color:Red"><img style="width: 1.2rem;" src="/img/att_inc.gif"><strong> 1 Attack</strong></h5>
                     <h5>in 0:15:06 hrs.</h5>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <h5 style="color:Orange"><img style="width: 1.2rem;" src="/img/att_out.gif"><strong> 2 Attacks<strong></h5>
+                    <h5 style="color:Orange"><img style="width: 1.2rem;" src="/img/att_out.gif"><strong> 2 Attacks</strong></h5>
                     <h5>in 1:05:35 hrs.</h5>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <h5 style="color:Green"><img style="width: 1.2rem;" src="/img/def_1.gif"><strong> 45 Reinf.<strong></h5>
+                    <h5 style="color:Green"><img style="width: 1.2rem;" src="/img/def_1.gif"><strong> 45 Reinf.</strong></h5>
                     <h5>in 0:55:30 hrs.</h5>
                 </div>
                 <p></p>
