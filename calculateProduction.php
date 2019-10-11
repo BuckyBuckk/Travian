@@ -26,6 +26,11 @@
         }
     }
 
+    $productionWood*=100;
+    $productionClay*=100;
+    $productionIron*=100;
+    $productionCrop*=100;
+
     //Update the resources and last update time
     $updateProduction = $connection->prepare("UPDATE villageproduction SET productionwood=?,productionclay=?,productioniron=?,productioncrop=? WHERE idvillage = ?");
     $updateProduction->bind_param("iiiii",$productionWood,$productionClay,$productionIron,$productionCrop,$villageID);

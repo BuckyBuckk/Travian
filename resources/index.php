@@ -5,6 +5,8 @@
         header('location: /login');    
     }
 
+
+
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsLevel.php');
@@ -72,17 +74,20 @@
         <div class="d-flex justify-content-center" id="currentResources">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif"> <?php echo (int)$currentRes[1]."/".(int)$maxRes[1] ?>
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif">
+                    <span id="currentWood"> <?php echo (int)$currentRes[1]; ?></span>/<?php echo (int)$maxRes[1]; ?>                    
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/clay.gif"> <?php echo (int)$currentRes[2]."/".(int)$maxRes[2] ?>
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/clay.gif">
+                    <span id="currentClay"> <?php echo (int)$currentRes[2]; ?></span>/<?php echo (int)$maxRes[2]; ?>                    
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/iron.gif"> <?php echo (int)$currentRes[3]."/".(int)$maxRes[3] ?>
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/iron.gif">
+                    <span id="currentIron"> <?php echo (int)$currentRes[3]; ?></span>/<?php echo (int)$maxRes[3]; ?>                    
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif"> <?php echo (int)$currentRes[4]."/".(int)$maxRes[4] ?>
-
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif">
+                    <span id="currentCrop"> <?php echo (int)$currentRes[4]; ?></span>/<?php echo (int)$maxRes[4 ]; ?>                    
                 </li>
             </ul>
         </div>
@@ -384,3 +389,23 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+    
+        setInterval(()=> {
+            document.getElementById("currentWood").innerHTML=parseInt(document.getElementById("currentWood").innerHTML)+1;
+        }, <?php echo 1000*3600/$productionWood ?>);
+        setInterval(()=> {
+            document.getElementById("currentClay").innerHTML=parseInt(document.getElementById("currentClay").innerHTML)+1;
+        }, <?php echo 1000*3600/$productionClay ?>);
+        setInterval(()=> {
+            document.getElementById("currentIron").innerHTML=parseInt(document.getElementById("currentIron").innerHTML)+1;
+        }, <?php echo 1000*3600/$productionIron ?>);
+        setInterval(()=> {
+            document.getElementById("currentCrop").innerHTML=parseInt(document.getElementById("currentCrop").innerHTML)+1;
+        }, <?php echo 1000*3600/$productionCrop ?>);
+        
+    </script>
+        
+</body>
