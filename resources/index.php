@@ -99,6 +99,7 @@
             <!-- Resource Fields -->
             <div class="col-md-8">
                 <p class="h2 text-center mb-3"><strong> <?php echo $_SESSION['username']." (capital)"; //tuki more bit village name ?></strong></p>
+
                 <div class="grid">
                     <ul id="hexGrid" style="padding-left: 0px;">
                         <!-- Row 1 -->
@@ -327,8 +328,7 @@
                             </a>
                             </div>
                         </li>
-                    </ul>
-                
+                    </ul>                
                 </div>
                 <?php
                 if(count($currentUpgrades)>0){
@@ -412,7 +412,6 @@
 
 
     <script>
-    
         var woodInterval = setInterval( ()=> {
             let curWood = document.getElementById("currentWood").innerHTML;
             let maxWood = document.getElementById("maxWood").innerHTML;
