@@ -48,7 +48,7 @@
     }
 
     if($newWood>=$upgradeReqs[0] && $newClay>=$upgradeReqs[1] && $newIron>=$upgradeReqs[2] && $newCrop>=$upgradeReqs[3]){        
-        $timeCompleted=$currentTime+$upgradeReqs[4];
+        $timeCompleted=$currentTime+$upgradeReqs[5];
         
         $logResFieldUpgrade = $connection->prepare("INSERT INTO resfieldupgradetimes (idvillage,rfid,fieldtype,fieldlevel,timestarted,timecompleted) VALUES (?,?,?,?,?,?)");
         $logResFieldUpgrade->bind_param("iisiii", $villageID, $rfid, $resFieldTypeLong, $resFieldLevelNew, $currentTime, $timeCompleted);
@@ -67,7 +67,7 @@
 
         $upgradeEventQuery = "
                 CREATE EVENT IF NOT EXISTS upgradeResField".$rfid."_".$villageID."
-                ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL ".$upgradeReqs[4]." SECOND
+                ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL ".$upgradeReqs[5]." SECOND
                 DO
                 BEGIN
                 UPDATE villagefieldlevels SET ".$columnName." = ".$resFieldLevelNew." WHERE idvillage = ".$villageID.";
