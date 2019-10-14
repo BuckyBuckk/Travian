@@ -29,16 +29,40 @@ class ResourceInfo{
         if($type=="wood"){
             return self::$woodcutter[$level][8];
         }
-        if($type=="clay"){
+        else if($type=="clay"){
             return self::$claypit[$level][8];
         }
-        if($type=="iron"){
+        else if($type=="iron"){
             return self::$ironmine[$level][8];
         }
-        if($type=="crop"){
+        else if($type=="crop"){
             return self::$cropland[$level][8];
         }
     }
+
+    public static function getUpgradeReq($type,$level){
+        if($type=="wood"){
+            $woodRow=self::$woodcutter[$level];
+            $upgradeReqs=array($woodRow[1], $woodRow[2], $woodRow[3], $woodRow[4], (int)$woodRow[6]/20);
+            return $upgradeReqs;
+        }
+        else if($type=="clay"){
+            $clayRow=self::$claypit[$level];
+            $upgradeReqs=array($clayRow[1], $clayRow[2], $clayRow[3], $clayRow[4], (int)$clayRow[6]/20);
+            return $upgradeReqs;
+        }
+        else if($type=="iron"){
+            $ironRow=self::$ironmine[$level];
+            $upgradeReqs=array($ironRow[1], $ironRow[2], $ironRow[3], $ironRow[4], (int)$ironRow[6]/20);
+            return $upgradeReqs;
+        }
+        else if($type=="crop"){
+            $cropRow=self::$cropland[$level];
+            $upgradeReqs=array($cropRow[1], $cropRow[2], $cropRow[3], $cropRow[4], (int)$cropRow[6]/20);
+            return $upgradeReqs;
+        }
+    }
+
 }
 
 ?>

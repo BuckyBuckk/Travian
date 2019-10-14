@@ -1,12 +1,37 @@
 <?php
     //Start the Session
     session_start();
-    require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
 
     if (!isset($_SESSION['username'])){
         header('location: /login');    
     }
+    if (!isset($_GET['rfid'])){
+        header('location: /resources');    
+    }
+
+    require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/resourceInfoLookup.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
+    
+    $rfid = (int)mysqli_real_escape_string($connection, $_GET['rfid']);
+
+    $getResFieldLevel = $connection->prepare('SELECT * FROM villagefieldlevels WHERE idvillage= ?');
+    $getResFieldLevel->bind_param('i', $villageID);
+    $getResFieldLevel->execute();
+    $resultResFieldLevel = $getResFieldLevel->get_result();
+    $resFieldLevelRow = $resultResFieldLevel->fetch_row();
+
+    $resFieldLevel = $resFieldLevelRow[$rfid];
+    $getResFieldLevel->close();
+
+    $getResFieldType = $connection->prepare('SELECT * FROM villagefieldtypes WHERE idVillage= ?');
+    $getResFieldType->bind_param('i', $villageID);
+    $getResFieldType->execute();
+    $resultResFieldType = $getResFieldType->get_result();
+    $resFieldTypeRow = $resultResFieldType->fetch_row();
+
+    $resFieldType = $resFieldTypeRow[$rfid];
+    $getResFieldType->close();
 
 ?>
 
@@ -104,6 +129,6 @@
                 <img style="width: 1.5rem;height: 1rem;" src="/img/consum.gif"> 2 |
                 <img style="width: 1.5rem;height: 1rem;" src="/img/clock.gif"> 0:00:03</p>
             </h5>
-            <h6> <a <?php if(0){echo 'href="#" onclick="test()"';} //check if theres enough resources to upgrade?> >Upgrade to Level 2</a> </h6>
+            <h6> <a href="/upgradeResField.php?rfid=<?php echo $rfid; ?>" >Upgrade to Level 2</a> </h6>
         </div>
     </div>

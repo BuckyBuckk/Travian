@@ -5,15 +5,13 @@
         header('location: /login');    
     }
 
-
-
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsLevel.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsType.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentUpgrades.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/calculateProduction.php');
 
-    
 ?>
 
 <!DOCTYPE html>
@@ -75,19 +73,19 @@
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
                     <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif">
-                    <span id="currentWood"> <?php echo (int)$currentRes[1]; ?></span>/<?php echo (int)$maxRes[1]; ?>                    
+                    <span id="currentWood"><?php echo (int)$newWood; ?></span>/<span id="maxWood"><?php echo (int)$maxRes[1]; ?></span>
                 </li>
                 <li class="list-group-item">
                     <img style="width: 1.2rem;height: 0.9rem;" src="/img/clay.gif">
-                    <span id="currentClay"> <?php echo (int)$currentRes[2]; ?></span>/<?php echo (int)$maxRes[2]; ?>                    
+                    <span id="currentClay"><?php echo (int)$newClay; ?></span>/<span id="maxClay"><?php echo (int)$maxRes[2]; ?></span>
                 </li>
                 <li class="list-group-item">
                     <img style="width: 1.2rem;height: 0.9rem;" src="/img/iron.gif">
-                    <span id="currentIron"> <?php echo (int)$currentRes[3]; ?></span>/<?php echo (int)$maxRes[3]; ?>                    
+                    <span id="currentIron"><?php echo (int)$newIron; ?></span>/<span id="maxIron"><?php echo (int)$maxRes[3]; ?></span>
                 </li>
                 <li class="list-group-item">
                     <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif">
-                    <span id="currentCrop"> <?php echo (int)$currentRes[4]; ?></span>/<?php echo (int)$maxRes[4 ]; ?>                    
+                    <span id="currentCrop"><?php echo (int)$newCrop; ?></span>/<span id="maxCrop"><?php echo (int)$maxRes[4]; ?></span>
                 </li>
             </ul>
         </div>
@@ -100,7 +98,8 @@
         <div class="row">
             <!-- Resource Fields -->
             <div class="col-md-8">
-                <p class="h2 text-center"><strong> <?php echo $_SESSION['username']." (capital)"; //tuki more bit village name ?></strong></p>
+                <p class="h2 text-center mb-3"><strong> <?php echo $_SESSION['username']." (capital)"; //tuki more bit village name ?></strong></p>
+
                 <div class="grid">
                     <ul id="hexGrid" style="padding-left: 0px;">
                         <!-- Row 1 -->
@@ -121,7 +120,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=2">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[2]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[2]; ?></p>
                                 </div>
@@ -132,7 +131,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=3">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[3]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[3]; ?></p>
                                 </div>
@@ -148,7 +147,7 @@
                         <!-- Row 2 -->
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=4">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[4]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[4]; ?></p>
                                 </div>
@@ -159,7 +158,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=5">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[5]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[5]; ?></p>
                                 </div>
@@ -170,7 +169,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=6">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[6]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[6]; ?></p>
                                 </div>
@@ -181,7 +180,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=7">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[7]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[7]; ?></p>
                                 </div>
@@ -193,7 +192,7 @@
                         <!-- Row 3 -->
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=8">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[8]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[8]; ?></p>
                                 </div>
@@ -204,7 +203,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=9">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[9]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[9]; ?></p>
                                 </div>
@@ -226,7 +225,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=10">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[10]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[10]; ?></p>
                                 </div>
@@ -237,7 +236,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=11">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[11]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[11]; ?></p>
                                 </div>
@@ -249,7 +248,7 @@
                         <!-- Row 4 -->
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=12">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[12]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[12]; ?></p>
                                 </div>
@@ -260,7 +259,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=13">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[13]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[13]; ?></p>
                                 </div>
@@ -271,7 +270,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=14">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[14]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[14]; ?></p>
                                 </div>
@@ -282,7 +281,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=15">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[15]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[15]; ?></p>
                                 </div>
@@ -298,7 +297,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=16">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[16]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[16]; ?></p>
                                 </div>
@@ -309,7 +308,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=17">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[17]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[17]; ?></p>
                                 </div>
@@ -320,7 +319,7 @@
                         </li>
                         <li class="hex">
                             <div class="hexIn">
-                            <a class="hexLink" href="resourceField?rfid=1">
+                            <a class="hexLink" href="resourceField?rfid=18">
                                 <div class='img' style='background-color:<?php echo $resFieldColor[18]; ?>'>
                                     <p style="top:35%;opacity:1;color:black"><?php echo $resFieldLevel[18]; ?></p>
                                 </div>
@@ -329,8 +328,29 @@
                             </a>
                             </div>
                         </li>
-                    </ul>
+                    </ul>                
                 </div>
+                <?php
+                if(count($currentUpgrades)>0){
+                    echo '
+                    <p class="h3 pl-5 ml-4 mt-3">Buildings:</p>
+                    <div class="d-flex justify-content-between  pl-5 ml-4">
+                        <h5><img style="width: 1.0rem;height: 0.9rem;" src="/img/del.gif"> '.$currentUpgrades[0][2].' (Level '.$currentUpgrades[0][3].')</h5>
+                        <h5>in <span id="upgradeCD1">'.date("H:i:s",(int)$currentUpgrades[0][5]-time()-3600).'</span> hours</h5>
+                        <h5>done at '.date("H:i:s",(int)$currentUpgrades[0][5]).' </h5>
+                    </div>
+                    ';                    
+                    if(count($currentUpgrades)==2){
+                        echo '
+                        <div class="d-flex justify-content-between  pl-5 ml-4">
+                            <h5><img style="width: 1.0rem;height: 0.9rem;" src="/img/del.gif"> '.$currentUpgrades[1][2].' (Level '.$currentUpgrades[1][3].')</h5>
+                            <h5>in <span id="upgradeCD2">'.date("H:i:s",(int)$currentUpgrades[1][5]-time()-3600).'</span> hours</h5>
+                            <h5>done at '.date("H:i:s",(int)$currentUpgrades[1][5]).' </h5>
+                        </div>
+                        ';
+                    }
+                }
+                ?>
             </div>
 
             <!-- Troop Movements and other stuff on the right -->
@@ -353,19 +373,19 @@
                 <p class="h3">Production:</p>
                 <div class="d-flex justify-content-between">
                     <h5><img style="width: 1.5rem;height: 1rem;" src="/img/wood.gif"> Wood:</h5>
-                    <h5><strong><?php echo (int)$Production[1] ?></strong> per hour</h5>
+                    <h5><strong><?php echo (int)$productionWood ?></strong> per hour</h5>
                 </div>
                 <div class="d-flex justify-content-between">
                     <h5><img style="width: 1.5rem;height: 1rem;" src="/img/clay.gif"> Clay:</h5>
-                    <h5><strong><?php echo (int)$Production[2] ?></strong> per hour</h5>
+                    <h5><strong><?php echo (int)$productionClay ?></strong> per hour</h5>
                 </div>
                 <div class="d-flex justify-content-between">
                     <h5><img style="width: 1.5rem;height: 1rem;" src="/img/iron.gif"> Iron:</h5>
-                    <h5><strong><?php echo (int)$Production[3] ?></strong> per hour</h5>
+                    <h5><strong><?php echo (int)$productionIron ?></strong> per hour</h5>
                 </div>
                 <div class="d-flex justify-content-between">
                     <h5><img style="width: 1.5rem;height: 1rem;" src="/img/crop.gif"> Crop:</h5>
-                    <h5><strong><?php echo (int)$Production[4] ?></strong> per hour</h5>
+                    <h5><strong><?php echo (int)$productionCrop ?></strong> per hour</h5>
                 </div>
                 <p></p>
                 <p class="h3">Troops:</p>
@@ -392,20 +412,80 @@
 
 
     <script>
-    
-        setInterval(()=> {
-            document.getElementById("currentWood").innerHTML=parseInt(document.getElementById("currentWood").innerHTML)+1;
+        var woodInterval = setInterval( ()=> {
+            let curWood = document.getElementById("currentWood").innerHTML;
+            let maxWood = document.getElementById("maxWood").innerHTML;
+            if(parseInt(curWood) < parseInt(maxWood)){
+                document.getElementById("currentWood").innerHTML=parseInt(curWood)+1;
+            }
+            else if(document.getElementById("currentWood").innerHTML && document.getElementById("maxWood").innerHTML){
+                clearInterval(woodInterval);
+            }
         }, <?php echo 1000*3600/$productionWood ?>);
-        setInterval(()=> {
-            document.getElementById("currentClay").innerHTML=parseInt(document.getElementById("currentClay").innerHTML)+1;
+
+        var clayInterval = setInterval( ()=> {
+            let curClay = document.getElementById("currentClay").innerHTML;
+            let maxClay = document.getElementById("maxClay").innerHTML;
+            if(parseInt(curClay) < parseInt(maxClay)){
+                document.getElementById("currentClay").innerHTML=parseInt(curClay)+1;
+            }
+            else if(document.getElementById("currentClay").innerHTML && document.getElementById("maxClay").innerHTML){
+                clearInterval(clayInterval);
+            }
         }, <?php echo 1000*3600/$productionClay ?>);
-        setInterval(()=> {
-            document.getElementById("currentIron").innerHTML=parseInt(document.getElementById("currentIron").innerHTML)+1;
+
+        var ironInterval = setInterval( ()=> {
+            let curIron = document.getElementById("currentIron").innerHTML;
+            let maxIron = document.getElementById("maxIron").innerHTML;
+            if(parseInt(curIron) < parseInt(maxIron)){
+                document.getElementById("currentIron").innerHTML=parseInt(curIron)+1;
+            }
+            else if(document.getElementById("currentIron").innerHTML && document.getElementById("maxIron").innerHTML){
+                clearInterval(ironInterval);
+            }
         }, <?php echo 1000*3600/$productionIron ?>);
-        setInterval(()=> {
-            document.getElementById("currentCrop").innerHTML=parseInt(document.getElementById("currentCrop").innerHTML)+1;
+        
+        var cropInterval = setInterval( ()=> {
+            let curCrop = document.getElementById("currentCrop").innerHTML;
+            let maxCrop = document.getElementById("maxCrop").innerHTML;
+            if(parseInt(curCrop) < parseInt(maxCrop)){
+                document.getElementById("currentCrop").innerHTML=parseInt(curCrop)+1;
+            }
+            else if(document.getElementById("currentCrop").innerHTML && document.getElementById("maxCrop").innerHTML){
+                clearInterval(cropInterval);
+            }
         }, <?php echo 1000*3600/$productionCrop ?>);
         
     </script>
-        
+    <script>
+        if(document.getElementById("upgradeCD1")){
+            var upgradeCD1Interval = setInterval( ()=> {
+                let upgradeCD1 = document.getElementById("upgradeCD1").innerHTML.split(":");
+
+                let upgradeCD1Seconds = 3600*parseInt(upgradeCD1[0]) + 60*parseInt(upgradeCD1[1]) + parseInt(upgradeCD1[2]);
+                upgradeCD1Seconds--;
+
+                if(upgradeCD1Seconds==-1){
+                    location.reload();
+                }
+                else{
+                    var h = Math.floor(upgradeCD1Seconds / 3600);
+                    if(h<10){
+                        h="0"+h;
+                    }
+                    var m = Math.floor(upgradeCD1Seconds % 3600 / 60);
+                    if(m<10){
+                        m="0"+m;
+                    }
+                    var s = Math.floor(upgradeCD1Seconds % 3600 % 60);
+                    if(s<10){
+                        s="0"+s;
+                    }
+                    document.getElementById("upgradeCD1").innerHTML=h+":"+m+":"+s;
+                }
+            }, 1000);
+        }
+
+
+    </script>
 </body>
