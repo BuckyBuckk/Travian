@@ -62,6 +62,7 @@ class ResourceInfo{
             return $upgradeReqs;
         }
     }
+
 }
 
 ?>
