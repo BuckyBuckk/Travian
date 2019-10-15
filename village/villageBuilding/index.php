@@ -115,7 +115,7 @@
                         </th>
                         <td class="align-middle">
                             <div class="input-group input-group-sm mb-3 align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="unit1">
                             </div>
                         </td>
                         <td class="align-middle">
@@ -124,7 +124,7 @@
                     </tr>
                     <tr>
                     <th scope="row" class="align-middle">
-                            <img style="width: 1.2rem;height: 1rem;" src="/img/maceman.gif">Spearman (Available:0)
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/spearman.gif"> Spearman (Available:0)
                             <br />
                             <img style="width: 1.2rem;height: 1rem;" src="/img/wood.gif"> 145 |
                             <img style="width: 1.2rem;height: 1rem;" src="/img/clay.gif"> 75 |
@@ -135,7 +135,7 @@
                         </th>
                         <td class="align-middle">
                             <div class="input-group input-group-sm mb-3 align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="unit2">
                             </div>
                         </td>
                         <td class="align-middle">
@@ -145,7 +145,7 @@
                 </tbody>
             </table>
             <div class="btn-group mt-2 mb-5 w-75" role="group" aria-label="Train">
-                <button type="button" class="btn btn-success w-75 m-auto mt-3">Train</button>
+                <button type="button" class="btn btn-success w-75 m-auto mt-3" onclick="train();">Train</button>
             </div>
             <table class="table table-bordered w-75 m-auto">
                 <thead >
@@ -185,3 +185,20 @@
             <h6> <a <?php if(0){echo 'href="#" onclick="test()"';} //check if theres enough resources to upgrade?> >Upgrade to Level 2</a> </h6>
         </div>
     </div>
+    <script>
+    function train(){
+        unitsToTrain="";
+        if(document.getElementById("unit1").value){
+            unitsToTrain+="&unit1="+document.getElementById("unit1").value;
+        }
+        if(document.getElementById("unit2").value){
+            unitsToTrain+="&unit2="+document.getElementById("unit2").value;
+        }
+        if(unitsToTrain){
+            window.location.href = "/trainBarracks.php?"+unitsToTrain;
+        }
+    }
+
+
+    </script>
+</body>

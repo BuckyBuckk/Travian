@@ -157,13 +157,13 @@
     <!-- Resource Fields -->
     <div class="container">
         <div class="justify-content-center text-center">
-            <h1> <?php //tuki more bit resourceField name in level glede na rfid ?> <?php echo $resFieldTypeLong; ?> Level <?php echo $resFieldLevel; ?></h1><br />
+            <h1><?php echo $resFieldTypeLong; ?> Level <?php echo $resFieldLevel; ?></h1><br />
             <h6><?php echo $resFieldDesc; ?></h6><br />
-            <h5> <p><?php //current production glede na level ?>Current production:        <?php echo $productionCurrLevel; ?> per hour</p></h5>
-            <h5> <p><?php //production glede na level+1 ?>Production at Level <?php echo $resFieldLevel+1; ?>:        <?php echo $productionNextLevel; ?> per hour</p></h5>
+            <h5><p>Current production:        <?php echo $productionCurrLevel; ?> per hour</p></h5>
+            <h5><p>Production at Level <?php echo $resFieldLevel+1; ?>:        <?php echo $productionNextLevel; ?> per hour</p></h5>
             <br />
-            <h4> <p><?php //Cost upgrada na level+1 ?>Cost for upgrading to Level <?php echo $resFieldLevel+1; ?>:</p></h4>
-            <h5> <p><?php //Cost upgrada na level+1 ?>
+            <h4> <p>Cost for upgrading to Level <?php echo $resFieldLevel+1; ?>:</p></h4>
+            <h5> <p>
                 <img style="width: 1.5rem;height: 1rem;" src="/img/wood.gif"> <?php echo $upgradeReqsNextLevel[0]; ?> |
                 <img style="width: 1.5rem;height: 1rem;" src="/img/clay.gif"> <?php echo $upgradeReqsNextLevel[1]; ?> |
                 <img style="width: 1.5rem;height: 1rem;" src="/img/iron.gif"> <?php echo $upgradeReqsNextLevel[2]; ?> |
