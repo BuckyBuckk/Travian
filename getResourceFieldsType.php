@@ -13,6 +13,7 @@
     $resFieldType = $resultResFieldType->fetch_row();
     $getResFieldType->close();
 
+    //Colors for the frontend
     $resFieldColor = array();
     for($i = 1; $i < count($resFieldType); $i++){
         if($resFieldType[$i]=="wood"){
