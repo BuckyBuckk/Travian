@@ -486,6 +486,34 @@
             }, 1000);
         }
 
+        if(document.getElementById("upgradeCD2")){
+            var upgradeCD2Interval = setInterval( ()=> {
+                let upgradeCD2 = document.getElementById("upgradeCD2").innerHTML.split(":");
+
+                let upgradeCD2Seconds = 3600*parseInt(upgradeCD2[0]) + 60*parseInt(upgradeCD2[1]) + parseInt(upgradeCD2[2]);
+                upgradeCD2Seconds--;
+
+                if(upgradeCD2Seconds==-1){
+                    location.reload();
+                }
+                else{
+                    var h = Math.floor(upgradeCD2Seconds / 3600);
+                    if(h<10){
+                        h="0"+h;
+                    }
+                    var m = Math.floor(upgradeCD2Seconds % 3600 / 60);
+                    if(m<10){
+                        m="0"+m;
+                    }
+                    var s = Math.floor(upgradeCD2Seconds % 3600 % 60);
+                    if(s<10){
+                        s="0"+s;
+                    }
+                    document.getElementById("upgradeCD2").innerHTML=h+":"+m+":"+s;
+                }
+            }, 1000);
+        }
+
 
     </script>
 </body>

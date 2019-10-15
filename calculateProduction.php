@@ -11,6 +11,7 @@
     $productionIron = 0;
     $productionCrop = 0;
 
+    //Get production of all 4 resources
     for($i = 0; $i < count($resFieldType); $i++){
         if($resFieldType[$i]=="wood"){
             $productionWood+=ResourceInfo::getProduction("wood",$resFieldLevel[$i]);

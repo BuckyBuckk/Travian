@@ -15,6 +15,7 @@
     
     $rfid = (int)mysqli_real_escape_string($connection, $_GET['rfid']);
 
+    //Gets specific resource field level
     $getResFieldLevel = $connection->prepare('SELECT * FROM villagefieldlevels WHERE idvillage= ?');
     $getResFieldLevel->bind_param('i', $villageID);
     $getResFieldLevel->execute();
@@ -24,6 +25,7 @@
     $resFieldLevel = $resFieldLevelRow[$rfid];
     $getResFieldLevel->close();
 
+    //Gets specific resource field type
     $getResFieldType = $connection->prepare('SELECT * FROM villagefieldtypes WHERE idVillage= ?');
     $getResFieldType->bind_param('i', $villageID);
     $getResFieldType->execute();
@@ -33,6 +35,7 @@
     $resFieldType = $resFieldTypeRow[$rfid];
     $getResFieldType->close();
 
+    //Resource field type for frontend
     $resFieldTypeLong="";
     if($resFieldType=="wood"){
         $resFieldTypeLong="Woodcutter";
@@ -52,6 +55,7 @@
 
     $upgradeReqsNextLevel = ResourceInfo::getUpgradeReq($resFieldType,$resFieldLevel+1);
 
+    //Converts time to H:m:s
     $timeNextLevelHours = (int)($upgradeReqsNextLevel[5] / 3600);
     if($timeNextLevelHours<10){
         $timeNextLevelHours="0".$timeNextLevelHours;
