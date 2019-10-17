@@ -2,7 +2,7 @@
 class TroopInfo{
     public static $teutonTroops = array(
         array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime"),
-        array("Macemen",40,20,5,95,75,40,40,7,60,1,720),
+        array("Macemen",40,20,5,95,75,40,40,7,60,1,721),
         array("Spearman",10,35,60,145,70,85,40,7,40,1,1120),
         array("Axeman",60,30,30,130,120,170,70,6,50,1,1200),
         array("Scout",0,10,5,160,100,50,50,9,0,1,1120),
@@ -48,16 +48,30 @@ class TroopInfo{
 
     public static function getTrainTime($tribe,$troopID){
         if($tribe=="teuton"){
-            return self::$teutonTroops[$troopID][11]/20;
+            return self::$teutonTroops[$troopID][11]/100;
         }
         else if($tribe=="roman"){
-            return self::$romanTroops[$troopID][11]/20;
+            return self::$romanTroops[$troopID][11]/100;
         }
         else if($tribe=="gaul"){
-            return self::$gaulTroops[$troopID][11]/20;
+            return self::$gaulTroops[$troopID][11]/100;
         }
         else if($tribe=="natar"){
-            return self::$natarTroops[$troopID][11]/20;
+            return self::$natarTroops[$troopID][11]/100;
+        }
+    }
+    public static function getTroopName($tribe,$troopID){
+        if($tribe=="teuton"){
+            return self::$teutonTroops[$troopID][0];
+        }
+        else if($tribe=="roman"){
+            return self::$romanTroops[$troopID][0];
+        }
+        else if($tribe=="gaul"){
+            return self::$gaulTroops[$troopID][0];
+        }
+        else if($tribe=="natar"){
+            return self::$natarTroops[$troopID][0];
         }
     }
 }

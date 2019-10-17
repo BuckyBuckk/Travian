@@ -16,77 +16,88 @@ else{
     header('location: /village');
 }
 
-$unitsToTrain=[];
+
+$currentTime = time();
+$villageID = $_SESSION['idPlayer'];
+
+$troopsToTrainNum = array();
+$troopsToTrainID = array();
 if(isset($_GET['unit1'])){
-    $unitsToTrain[1]=(int)mysqli_real_escape_string($connection, $_GET['unit1']);
+    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit1']));
+    array_push($troopsToTrainID, 1);
 }
 if(isset($_GET['unit2'])){
-    $unitsToTrain[2]=(int)mysqli_real_escape_string($connection, $_GET['unit2']);
+    array_push($troopsToTrainNUM, (int)mysqli_real_escape_string($connection, $_GET['unit2']));
+    array_push($troopsToTrainID, 2);
+}
+if(isset($_GET['unit3'])){
+    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit3']));
+    array_push($troopsToTrainID, 3);
 }
 
-$combinedTrainTime = 0;
-for($i = 1; $i < count($unitsToTrain)+1; $i++){
-    $trainTime = TroopInfo::getTrainTime("teuton",$i);
-    $trainCost = TroopInfo::getTrainCost("teuton",$i);
+for($i = 0; $i < count($troopsToTrainID); $i++){
+    $trainTime = TroopInfo::getTrainTime("teuton",$troopsToTrainID[$i]);
+    $trainCost = TroopInfo::getTrainCost("teuton",$troopsToTrainID[$i]);
+    $troopName[$i] = TroopInfo::getTroopName("teuton",$troopsToTrainID[$i]);
 
-    $combinedTrainTime += $trainTime * $unitsToTrain[$i];
+    $combinedTrainTime[$i] = $trainTime * $troopsToTrainNum[$i];
     $combinedTrainCost = [];
     foreach ($trainCost as $cost) {
-        $combinedTrainCost[] = $cost * $unitsToTrain[$i];
+        $combinedTrainCost[] = $cost * $troopsToTrainNum[$i];
     }
-
-    if($newWood>=$combinedTrainCost[0] && $newClay>=$combinedTrainCost[1] && $newIron>=$combinedTrainCost[2] && $newCrop>=$combinedTrainCost[3]){
-        //Subtract the resources that are needed to train
-        $newWood -= $combinedTrainCost[0];
-        $newClay -= $combinedTrainCost[1];
-        $newIron -= $combinedTrainCost[2];
-        $newCrop -= $combinedTrainCost[3];
-    }
-    else{
-        header('location: /village/villageBuilding/?vbid='.$vbid);
-    }
+    
+    //Subtract the resources that are needed to train
+    $newWood -= $combinedTrainCost[0];
+    $newClay -= $combinedTrainCost[1];
+    $newIron -= $combinedTrainCost[2];
+    $newCrop -= $combinedTrainCost[3];
+    
+    
 }
 
+$timeStarted = 0;
+$timeCompleted = $currentTime;
+$combinedTrainTimeAll = 0;
 
-var_dump($combinedTrainTime);
+if($newWood>=0 && $newClay>=0 && $newIron>=0 && $newCrop>=0){
+    for($i = 0; $i < count($troopsToTrainID); $i++){
+        $timeStarted = $timeCompleted;
+        $timeCompleted = $timeStarted + (int)$combinedTrainTime[$i];
+        $combinedTrainTimeAll += (int)$combinedTrainTime[$i];
 
-if(0){
-    $timeCompleted=$currentTime+$upgradeReqs[5];
-    
-    //Inserts into pending upgrades
-    $logResFieldUpgrade = $connection->prepare("INSERT INTO resfieldupgradetimes (idvillage,rfid,fieldtype,fieldlevel,timestarted,timecompleted) VALUES (?,?,?,?,?,?)");
-    $logResFieldUpgrade->bind_param("iisiii", $villageID, $rfid, $resFieldTypeLong, $resFieldLevelNew, $currentTime, $timeCompleted);
-    $logResFieldUpgrade->execute();
-    $logResFieldUpgrade->close();
+        //Insert into barracks production
+        
+        $barracksProduction = $connection->prepare("INSERT INTO barracksproduction (idvillage,unitname,unitcount,unitprodtime,timestarted,timecompleted) VALUES (?,?,?,?,?,?)");
+        $barracksProduction->bind_param("isidii", $villageID, $troopName[$i], $troopsToTrainNum[$i], $combinedTrainTime[$i], $timeStarted, $timeCompleted);
+        $barracksProduction->execute();
+        $barracksProduction->close();
 
-    
 
-    $updateCurrentRes = $connection->prepare("UPDATE villageresources SET currentWood=?,currentClay=?,currentIron=?,currentCrop=?,lastUpdate=? WHERE idVillage = ?");
-    $updateCurrentRes->bind_param("ddddii", $newWood,$newClay,$newIron,$newCrop,$currentTime,$villageID);
-    $updateCurrentRes->execute();
-    $updateCurrentRes->close();
+        
+        $updateCurrentRes = $connection->prepare("UPDATE villageresources SET currentWood=?,currentClay=?,currentIron=?,currentCrop=?,lastUpdate=? WHERE idVillage = ?");
+        $updateCurrentRes->bind_param("ddddii", $newWood,$newClay,$newIron,$newCrop,$currentTime,$villageID);
+        $updateCurrentRes->execute();
+        $updateCurrentRes->close();
 
-    //Create upgrade and delete event
-    $upgradeEventQuery = "
-            CREATE EVENT IF NOT EXISTS upgradeResField".$rfid."_".$villageID."
-            ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL ".$upgradeReqs[5]." SECOND
-            DO
-            BEGIN
-            UPDATE villagefieldlevels SET ".$columnName." = ".$resFieldLevelNew." WHERE idvillage = ".$villageID.";
-            DELETE FROM resfieldupgradetimes WHERE idvillage = ".$villageID." AND rfid = ".$rfid.";
-            END"
-            ;
+        
+        //Create upgrade and delete event
+        $trainEventQuery = "
+                CREATE EVENT IF NOT EXISTS trainBarracks".$villageID."_".$timeCompleted." 
+                ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL ".$combinedTrainTimeAll." SECOND
+                DO
+                DELETE FROM barracksproduction WHERE idvillage = ".$villageID." AND timecompleted = ".$timeCompleted.";"
+                ;
 
-    if($connection->query($upgradeEventQuery)){
-        header('location: /resources');
+        if($connection->query($trainEventQuery)){
+        }
+        else{
+            echo mysqli_error($connection);
+        }
+        
     }
-    else{
-        echo "query error";
-    }
-}
+    header('location: /village/villageBuilding/?vbid='.$vbid);
+}//If there arent enough resources redirect to barracks
 else{
+    header('location: /village/villageBuilding/?vbid='.$vbid);
 }
-
-
-
 ?>
