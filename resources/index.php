@@ -6,11 +6,14 @@
     }
 
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsLevel.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsType.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentUpgrades.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/calculateProduction.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentTroops.php');
+
+    echo $currentTroops[1];
 
 ?>
 
@@ -393,7 +396,7 @@
                 <?php if(1){
                     echo '
                     <div class="d-flex justify-content-center">
-                        <h5><img src="/img/maceman.gif"> 48 Macemen</h5>
+                        <h5><img src="/img/maceman.gif"> '.$currentTroops[1].' Macemen</h5>
                     </div>
                     ';
                 } // check troops from database

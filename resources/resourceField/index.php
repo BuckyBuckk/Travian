@@ -11,7 +11,7 @@
 
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/resourceInfoLookup.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
     
     $rfid = (int)mysqli_real_escape_string($connection, $_GET['rfid']);
 

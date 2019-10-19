@@ -6,7 +6,8 @@ if (!isset($_SESSION['username'])){
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/troopInfoLookup.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentTroops.php');
 
 
 if(isset($_GET['vbid'])){
@@ -36,11 +37,11 @@ if(isset($_GET['unit3'])){
 }
 
 for($i = 0; $i < count($troopsToTrainID); $i++){
-    $trainTime = TroopInfo::getTrainTime("teuton",$troopsToTrainID[$i]);
+    $trainTime[$i] = TroopInfo::getTrainTime("teuton",$troopsToTrainID[$i]);
     $trainCost = TroopInfo::getTrainCost("teuton",$troopsToTrainID[$i]);
     $troopName[$i] = TroopInfo::getTroopName("teuton",$troopsToTrainID[$i]);
 
-    $combinedTrainTime[$i] = $trainTime * $troopsToTrainNum[$i];
+    $combinedTrainTime[$i] = $trainTime[$i] * $troopsToTrainNum[$i];
     $combinedTrainCost = [];
     foreach ($trainCost as $cost) {
         $combinedTrainCost[] = $cost * $troopsToTrainNum[$i];
@@ -59,6 +60,10 @@ $timeStarted = 0;
 $timeCompleted = $currentTime;
 $combinedTrainTimeAll = 0;
 
+if($troopProduction){
+    //todo
+}
+
 if($newWood>=0 && $newClay>=0 && $newIron>=0 && $newCrop>=0){
     for($i = 0; $i < count($troopsToTrainID); $i++){
         $timeStarted = $timeCompleted;
@@ -67,8 +72,8 @@ if($newWood>=0 && $newClay>=0 && $newIron>=0 && $newCrop>=0){
 
         //Insert into barracks production
         
-        $barracksProduction = $connection->prepare("INSERT INTO barracksproduction (idvillage,unitname,unitcount,unitprodtime,timestarted,timecompleted) VALUES (?,?,?,?,?,?)");
-        $barracksProduction->bind_param("isidii", $villageID, $troopName[$i], $troopsToTrainNum[$i], $combinedTrainTime[$i], $timeStarted, $timeCompleted);
+        $barracksProduction = $connection->prepare("INSERT INTO barracksproduction (idvillage,unitname,unitid,unitcount,unitprodtime,timestarted,timecompleted,lastupdate) VALUES (?,?,?,?,?,?,?,?)");
+        $barracksProduction->bind_param("isiidiii", $villageID, $troopName[$i], $troopsToTrainID[$i], $troopsToTrainNum[$i], $trainTime[$i], $timeStarted, $timeCompleted, $timeStarted);
         $barracksProduction->execute();
         $barracksProduction->close();
 
@@ -80,7 +85,8 @@ if($newWood>=0 && $newClay>=0 && $newIron>=0 && $newCrop>=0){
         $updateCurrentRes->close();
 
         
-        //Create upgrade and delete event
+        //Create delete event
+        /*
         $trainEventQuery = "
                 CREATE EVENT IF NOT EXISTS trainBarracks".$villageID."_".$timeCompleted." 
                 ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL ".$combinedTrainTimeAll." SECOND
@@ -93,6 +99,7 @@ if($newWood>=0 && $newClay>=0 && $newIron>=0 && $newCrop>=0){
         else{
             echo mysqli_error($connection);
         }
+        */
         
     }
     header('location: /village/villageBuilding/?vbid='.$vbid);
