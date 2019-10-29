@@ -11,10 +11,11 @@
 
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/resourceInfoLookup.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
     
     $rfid = (int)mysqli_real_escape_string($connection, $_GET['rfid']);
 
+    //Gets specific resource field level
     $getResFieldLevel = $connection->prepare('SELECT * FROM villagefieldlevels WHERE idvillage= ?');
     $getResFieldLevel->bind_param('i', $villageID);
     $getResFieldLevel->execute();
@@ -24,6 +25,7 @@
     $resFieldLevel = $resFieldLevelRow[$rfid];
     $getResFieldLevel->close();
 
+    //Gets specific resource field type
     $getResFieldType = $connection->prepare('SELECT * FROM villagefieldtypes WHERE idVillage= ?');
     $getResFieldType->bind_param('i', $villageID);
     $getResFieldType->execute();
@@ -32,6 +34,46 @@
 
     $resFieldType = $resFieldTypeRow[$rfid];
     $getResFieldType->close();
+
+    //Resource field type for frontend
+    $resFieldTypeLong="";
+    if($resFieldType=="wood"){
+        $resFieldTypeLong="Woodcutter";
+    }
+    elseif($resFieldType=="clay"){
+        $resFieldTypeLong="Claypit";
+    }
+    elseif($resFieldType=="iron"){
+        $resFieldTypeLong="Ironmine";
+    }
+    elseif($resFieldType=="crop"){
+        $resFieldTypeLong="Cropland";
+    }
+
+    $productionCurrLevel = ResourceInfo::getProduction($resFieldType,$resFieldLevel);
+    $productionNextLevel = ResourceInfo::getProduction($resFieldType,$resFieldLevel+1);
+
+    $upgradeReqsNextLevel = ResourceInfo::getUpgradeReq($resFieldType,$resFieldLevel+1);
+
+    //Converts time to H:m:s
+    $timeNextLevelHours = (int)($upgradeReqsNextLevel[5] / 3600);
+    if($timeNextLevelHours<10){
+        $timeNextLevelHours="0".$timeNextLevelHours;
+    }
+
+    $timeNextLevelMinutes = (int)($upgradeReqsNextLevel[5] % 3600 / 60);
+    if($timeNextLevelMinutes<10){
+        $timeNextLevelMinutes="0".$timeNextLevelMinutes;
+    }
+
+    $timeNextLevelSeconds = (int)($upgradeReqsNextLevel[5] % 3600 % 60);
+    if($timeNextLevelSeconds<10){
+        $timeNextLevelSeconds="0".$timeNextLevelSeconds;
+    }
+
+    $timeNextLevel=$timeNextLevelHours.":".$timeNextLevelMinutes.":"."$timeNextLevelSeconds";
+
+    $resFieldDesc = ResourceInfo::getResFieldDesc($resFieldType);
 
 ?>
 
@@ -50,8 +92,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
 </head>
@@ -115,20 +156,20 @@
     <!-- Resource Fields -->
     <div class="container">
         <div class="justify-content-center text-center">
-            <h1> <?php //tuki more bit resourceField name in level glede na rfid ?> Woodcutter Level 1 </h1><br />
-            <h6>Your population`s food is produced here. By increasing the farm`s level you increase its crop production. </h6> <br />
-            <h5> <p><?php //current production glede na level ?>Current production:        200 per hour</p></h5>
-            <h5> <p><?php //production glede na level+1 ?>Production at level 2:        300 per hour</p></h5>
+            <h1><?php echo $resFieldTypeLong; ?> Level <?php echo $resFieldLevel; ?></h1><br />
+            <h6><?php echo $resFieldDesc; ?></h6><br />
+            <h5><p>Current production:        <?php echo $productionCurrLevel; ?> per hour</p></h5>
+            <h5><p>Production at Level <?php echo $resFieldLevel+1; ?>:        <?php echo $productionNextLevel; ?> per hour</p></h5>
             <br />
-            <h4> <p><?php //Cost upgrada na level+1 ?>Cost for upgrading to Level 2:</p></h4>
-            <h5> <p><?php //Cost upgrada na level+1 ?>
-                <img style="width: 1.5rem;height: 1rem;" src="/img/wood.gif"> 40 |
-                <img style="width: 1.5rem;height: 1rem;" src="/img/clay.gif"> 100 |
-                <img style="width: 1.5rem;height: 1rem;" src="/img/iron.gif"> 50 |
-                <img style="width: 1.5rem;height: 1rem;" src="/img/crop.gif"> 60 |
-                <img style="width: 1.5rem;height: 1rem;" src="/img/consum.gif"> 2 |
-                <img style="width: 1.5rem;height: 1rem;" src="/img/clock.gif"> 0:00:03</p>
+            <h4> <p>Cost for upgrading to Level <?php echo $resFieldLevel+1; ?>:</p></h4>
+            <h5> <p>
+                <img style="width: 1.5rem;height: 1rem;" src="/img/wood.gif"> <?php echo $upgradeReqsNextLevel[0]; ?> |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/clay.gif"> <?php echo $upgradeReqsNextLevel[1]; ?> |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/iron.gif"> <?php echo $upgradeReqsNextLevel[2]; ?> |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/crop.gif"> <?php echo $upgradeReqsNextLevel[3]; ?> |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/consum.gif"> <?php echo $upgradeReqsNextLevel[4]; ?> |
+                <img style="width: 1.5rem;height: 1rem;" src="/img/clock.gif"> <?php echo $timeNextLevel; ?></p>
             </h5>
-            <h6> <a href="/upgradeResField.php?rfid=<?php echo $rfid; ?>" >Upgrade to Level 2</a> </h6>
+            <h5> <a href="/upgradeResField.php?rfid=<?php echo $rfid; ?>" >Upgrade to Level <?php echo $resFieldLevel+1; ?></a> </h5>
         </div>
     </div>

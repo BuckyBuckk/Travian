@@ -11,6 +11,7 @@
     $productionIron = 0;
     $productionCrop = 0;
 
+    //Get production of all 4 resources
     for($i = 0; $i < count($resFieldType); $i++){
         if($resFieldType[$i]=="wood"){
             $productionWood+=ResourceInfo::getProduction("wood",$resFieldLevel[$i]);
@@ -25,11 +26,6 @@
             $productionCrop+=ResourceInfo::getProduction("crop",$resFieldLevel[$i]);
         }
     }
-
-    $productionWood*=100;
-    $productionClay*=100;
-    $productionIron*=100;
-    $productionCrop*=100;
 
     //Update the resources and last update time
     $updateProduction = $connection->prepare("UPDATE villageproduction SET productionwood=?,productionclay=?,productioniron=?,productioncrop=? WHERE idvillage = ?");

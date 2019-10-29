@@ -6,11 +6,27 @@
     }
 
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsLevel.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsType.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentUpgrades.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/calculateProduction.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentUpgrades.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentTroops.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/troopInfoLookup.php');
+
+    $currentTroopsHtml = [];
+    for($i = 1; $i < count($currentTroops); $i++){
+        if($currentTroops[$i] > 0){
+            $troopName = TroopInfo::getTroopName("teuton", $i);
+            array_push($currentTroopsHtml,
+                '
+                <div class="d-flex justify-content-center">
+                    <h5><img src="/img/maceman.gif"> '.(int)$currentTroops[$i].' '.$troopName.'</h5>
+                </div>
+                '
+            );
+        }            
+    }
 
 ?>
 
@@ -29,8 +45,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/hexcss.css" type="text/css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
 </head>
@@ -390,13 +405,11 @@
                 <p></p>
                 <p class="h3">Troops:</p>
                 <p class="h5">
-                <?php if(1){
-                    echo '
-                    <div class="d-flex justify-content-center">
-                        <h5><img src="/img/maceman.gif"> 48 Macemen</h5>
-                    </div>
-                    ';
-                } // check troops from database
+                <?php if($currentTroops){
+                    foreach ($currentTroopsHtml as $currentTroopsHtml) {
+                        echo $currentTroopsHtml;
+                    };
+                }
                 else{
                     echo '
                     <div class="text-center">
@@ -482,6 +495,34 @@
                         s="0"+s;
                     }
                     document.getElementById("upgradeCD1").innerHTML=h+":"+m+":"+s;
+                }
+            }, 1000);
+        }
+
+        if(document.getElementById("upgradeCD2")){
+            var upgradeCD2Interval = setInterval( ()=> {
+                let upgradeCD2 = document.getElementById("upgradeCD2").innerHTML.split(":");
+
+                let upgradeCD2Seconds = 3600*parseInt(upgradeCD2[0]) + 60*parseInt(upgradeCD2[1]) + parseInt(upgradeCD2[2]);
+                upgradeCD2Seconds--;
+
+                if(upgradeCD2Seconds==-1){
+                    location.reload();
+                }
+                else{
+                    var h = Math.floor(upgradeCD2Seconds / 3600);
+                    if(h<10){
+                        h="0"+h;
+                    }
+                    var m = Math.floor(upgradeCD2Seconds % 3600 / 60);
+                    if(m<10){
+                        m="0"+m;
+                    }
+                    var s = Math.floor(upgradeCD2Seconds % 3600 % 60);
+                    if(s<10){
+                        s="0"+s;
+                    }
+                    document.getElementById("upgradeCD2").innerHTML=h+":"+m+":"+s;
                 }
             }, 1000);
         }

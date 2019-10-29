@@ -3,14 +3,17 @@
 
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/resourceInfoLookup.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentUpgrades.php');
 
     $villageID = $_SESSION['idPlayer'];
     $rfid = (int)mysqli_real_escape_string($connection, $_GET['rfid']);
     $currentTime = time();
 
+    //Column name in the DB
     $columnName="resfield".$rfid."level";
 
+    //Gets specific resource field level
     $getResFieldLevel = $connection->prepare('SELECT * FROM villagefieldlevels WHERE idvillage= ?');
     $getResFieldLevel->bind_param('i', $villageID);
     $getResFieldLevel->execute();
@@ -20,6 +23,7 @@
     $resFieldLevel = $resFieldLevelRow[$rfid];
     $getResFieldLevel->close();
 
+    //Gets specific resource field type
     $getResFieldType = $connection->prepare('SELECT * FROM villagefieldtypes WHERE idVillage= ?');
     $getResFieldType->bind_param('i', $villageID);
     $getResFieldType->execute();
@@ -33,6 +37,7 @@
 
     $upgradeReqs=ResourceInfo::getUpgradeReq($resFieldType, $resFieldLevelNew);
 
+    //Resource field type for frontend
     $resFieldTypeLong="";
     if($resFieldType=="wood"){
         $resFieldTypeLong="Woodcutter";
@@ -47,14 +52,17 @@
         $resFieldTypeLong="Cropland";
     }
 
-    if($newWood>=$upgradeReqs[0] && $newClay>=$upgradeReqs[1] && $newIron>=$upgradeReqs[2] && $newCrop>=$upgradeReqs[3]){        
-        $timeCompleted=$currentTime+$upgradeReqs[4];
+    //Check for upgrade reqs
+    if($newWood>=$upgradeReqs[0] && $newClay>=$upgradeReqs[1] && $newIron>=$upgradeReqs[2] && $newCrop>=$upgradeReqs[3] && count($currentUpgrades)<2){        
+        $timeCompleted=$currentTime+$upgradeReqs[5];
         
+        //Inserts into pending upgrades
         $logResFieldUpgrade = $connection->prepare("INSERT INTO resfieldupgradetimes (idvillage,rfid,fieldtype,fieldlevel,timestarted,timecompleted) VALUES (?,?,?,?,?,?)");
         $logResFieldUpgrade->bind_param("iisiii", $villageID, $rfid, $resFieldTypeLong, $resFieldLevelNew, $currentTime, $timeCompleted);
         $logResFieldUpgrade->execute();
         $logResFieldUpgrade->close();
 
+        //Subtract the resources that are needed to upgrade
         $newWood -= $upgradeReqs[0];
         $newClay -= $upgradeReqs[1];
         $newIron -= $upgradeReqs[2];
@@ -65,9 +73,10 @@
         $updateCurrentRes->execute();
         $updateCurrentRes->close();
 
+        //Create upgrade and delete event
         $upgradeEventQuery = "
                 CREATE EVENT IF NOT EXISTS upgradeResField".$rfid."_".$villageID."
-                ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL ".$upgradeReqs[4]." SECOND
+                ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL ".$upgradeReqs[5]." SECOND
                 DO
                 BEGIN
                 UPDATE villagefieldlevels SET ".$columnName." = ".$resFieldLevelNew." WHERE idvillage = ".$villageID.";
