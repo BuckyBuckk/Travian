@@ -60,6 +60,7 @@ class TroopInfo{
             return self::$natarTroops[$troopID][11]/100;
         }
     }
+    
     public static function getTroopName($tribe,$troopID){
         if($tribe=="teuton"){
             return self::$teutonTroops[$troopID][0];

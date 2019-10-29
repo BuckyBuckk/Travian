@@ -154,7 +154,7 @@
                     </tr>
                     <tr>
                     <th scope="row" class="align-middle">
-                            <img style="width: 1.2rem;height: 1rem;" src="/img/spearman.gif"> Spearman (Available: 0)
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/spearman.gif"> Spearman (Available: <?php echo (int)$currentTroops[2]; ?>)
                             <br />
                             <img style="width: 1.2rem;height: 1rem;" src="/img/wood.gif"> 145 |
                             <img style="width: 1.2rem;height: 1rem;" src="/img/clay.gif"> 75 |
@@ -177,22 +177,27 @@
             <div class="btn-group mt-2 mb-5 w-75" role="group" aria-label="Train">
                 <button type="button" class="btn btn-success w-75 m-auto mt-3" onclick="train();">Train</button>
             </div>
-            <table class="table table-bordered w-75 m-auto">
-                <thead >
-                    <tr>
-                    <th scope="col">Training</th>
-                    <th scope="col" style="max-width:150px">Duration</th>
-                    <th scope="col">Finished</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        foreach ($troopProdHtml as $troopProdHtml) {
-                            echo $troopProdHtml;
-                        }
-                    ?>
-                </tbody>
-            </table>
+            <?php
+            if($allTroopProduction){
+                echo
+                '<table class="table table-bordered w-75 m-auto">
+                    <thead >
+                        <tr>
+                        <th scope="col">Training</th>
+                        <th scope="col" style="max-width:150px">Duration</th>
+                        <th scope="col">Finished</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ';
+                            foreach ($troopProdHtml as $troopProdHtml) {
+                                echo $troopProdHtml;
+                            };
+                        echo '
+                    </tbody>
+                </table>';
+            };
+            ?>
             <h5 class="mt-5"> <p><?php //current training time glede na level ?>Current training time:        100 percent</p></h5>
             <h5> <p><?php //training time glede na level+1 ?>Training time at level 2:        96 percent</p></h5>
             <br />

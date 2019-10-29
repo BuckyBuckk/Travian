@@ -28,7 +28,7 @@ if(isset($_GET['unit1'])){
     array_push($troopsToTrainID, 1);
 }
 if(isset($_GET['unit2'])){
-    array_push($troopsToTrainNUM, (int)mysqli_real_escape_string($connection, $_GET['unit2']));
+    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit2']));
     array_push($troopsToTrainID, 2);
 }
 if(isset($_GET['unit3'])){

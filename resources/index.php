@@ -12,6 +12,21 @@
     require_once($_SERVER['DOCUMENT_ROOT'].'/calculateProduction.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentUpgrades.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentTroops.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/troopInfoLookup.php');
+
+    $currentTroopsHtml = [];
+    for($i = 1; $i < count($currentTroops); $i++){
+        if($currentTroops[$i] > 0){
+            $troopName = TroopInfo::getTroopName("teuton", $i);
+            array_push($currentTroopsHtml,
+                '
+                <div class="d-flex justify-content-center">
+                    <h5><img src="/img/maceman.gif"> '.(int)$currentTroops[$i].' '.$troopName.'</h5>
+                </div>
+                '
+            );
+        }            
+    }
 
 ?>
 
@@ -390,13 +405,11 @@
                 <p></p>
                 <p class="h3">Troops:</p>
                 <p class="h5">
-                <?php if(1){
-                    echo '
-                    <div class="d-flex justify-content-center">
-                        <h5><img src="/img/maceman.gif"> '.(int)$currentTroops[1].' Macemen</h5>
-                    </div>
-                    ';
-                } // check troops from database
+                <?php if($currentTroops){
+                    foreach ($currentTroopsHtml as $currentTroopsHtml) {
+                        echo $currentTroopsHtml;
+                    };
+                }
                 else{
                     echo '
                     <div class="text-center">
