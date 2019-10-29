@@ -56,12 +56,22 @@ for($i = 0; $i < count($troopsToTrainID); $i++){
     
 }
 
-$timeStarted = 0;
+$timeStarted = $currentTime;
 $timeCompleted = $currentTime;
 $combinedTrainTimeAll = 0;
 
 if($troopProduction){
-    //todo
+    //Queue after the last troop production time
+    $getAllTroopProduction = $connection->prepare('SELECT * FROM barracksproduction WHERE idVillage= ?');
+    $getAllTroopProduction->bind_param('i', $villageID);
+    $getAllTroopProduction->execute();    
+    $resultAllTroopProduction = $getAllTroopProduction->get_result()->fetch_all(MYSQLI_NUM);
+    $getAllTroopProduction->close();
+
+    $lastTroopProduction = $resultAllTroopProduction[count($resultAllTroopProduction)-1];
+
+    $timeStarted = $lastTroopProduction[6];
+    $timeCompleted = $lastTroopProduction[6];
 }
 
 if($newWood>=0 && $newClay>=0 && $newIron>=0 && $newCrop>=0){
@@ -76,34 +86,17 @@ if($newWood>=0 && $newClay>=0 && $newIron>=0 && $newCrop>=0){
         $barracksProduction->bind_param("isiidiii", $villageID, $troopName[$i], $troopsToTrainID[$i], $troopsToTrainNum[$i], $trainTime[$i], $timeStarted, $timeCompleted, $timeStarted);
         $barracksProduction->execute();
         $barracksProduction->close();
-
-
         
         $updateCurrentRes = $connection->prepare("UPDATE villageresources SET currentWood=?,currentClay=?,currentIron=?,currentCrop=?,lastUpdate=? WHERE idVillage = ?");
         $updateCurrentRes->bind_param("ddddii", $newWood,$newClay,$newIron,$newCrop,$currentTime,$villageID);
         $updateCurrentRes->execute();
-        $updateCurrentRes->close();
-
-        
-        //Create delete event
-        /*
-        $trainEventQuery = "
-                CREATE EVENT IF NOT EXISTS trainBarracks".$villageID."_".$timeCompleted." 
-                ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL ".$combinedTrainTimeAll." SECOND
-                DO
-                DELETE FROM barracksproduction WHERE idvillage = ".$villageID." AND timecompleted = ".$timeCompleted.";"
-                ;
-
-        if($connection->query($trainEventQuery)){
-        }
-        else{
-            echo mysqli_error($connection);
-        }
-        */
+        $updateCurrentRes->close();        
         
     }
     header('location: /village/villageBuilding/?vbid='.$vbid);
-}//If there arent enough resources redirect to barracks
+    //header('location: /resources');
+}
+//If there arent enough resources redirect to barracks
 else{
     header('location: /village/villageBuilding/?vbid='.$vbid);
 }

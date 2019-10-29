@@ -2,7 +2,7 @@
 class TroopInfo{
     public static $teutonTroops = array(
         array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime"),
-        array("Macemen",40,20,5,95,75,40,40,7,60,1,721),
+        array("Macemen",40,20,5,95,75,40,40,7,60,1,1000),
         array("Spearman",10,35,60,145,70,85,40,7,40,1,1120),
         array("Axeman",60,30,30,130,120,170,70,6,50,1,1200),
         array("Scout",0,10,5,160,100,50,50,9,0,1,1120),
