@@ -3,7 +3,7 @@
 
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/resourceInfoLookup.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/refreshResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentUpgrades.php');
 
     $villageID = $_SESSION['idPlayer'];
