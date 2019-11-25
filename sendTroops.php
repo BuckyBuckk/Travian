@@ -3,6 +3,7 @@
     session_start();
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentTroops.php');
 
     if (!isset($_SESSION['username'])){
         header('location: /login');    
@@ -105,75 +106,68 @@
                     <th scope="col"><img style="width: 1.2rem;height: 1rem;" src="/img/maceman.gif"></th>
                     <th scope="col"><img style="width: 1.2rem;height: 1rem;" src="/img/maceman.gif"></th>
                     <th scope="col"><img style="width: 1.2rem;height: 1rem;" src="/img/maceman.gif"></th>
-                    <th scope="col"><img style="width: 1.2rem;height: 1rem;" src="/img/maceman.gif"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit1" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(1);" href="#" style="color:green"><strong>(<span id="currentTroops1"><?php echo (int)$currentTroops[1]; ?></span>)</strong></a>
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit2" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(2);" href="#" style="color:green"><strong>(<span id="currentTroops2"><?php echo (int)$currentTroops[2]; ?></span>)</strong></a>
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit3" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(3);" href="#" style="color:green"><strong>(<span id="currentTroops3"><?php echo (int)$currentTroops[3]; ?></span>)</strong></a>
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit4" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(4);" href="#" style="color:green"><strong>(<span id="currentTroops4"><?php echo (int)$currentTroops[4]; ?></span>)</strong></a>
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit5" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(5);" href="#" style="color:green"><strong>(<span id="currentTroops5"><?php echo (int)$currentTroops[5]; ?></span>)</strong></a>
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit6" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(6);" href="#" style="color:green"><strong>(<span id="currentTroops6"><?php echo (int)$currentTroops[6]; ?></span>)</strong></a>
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit7" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(7);" href="#" style="color:green"><strong>(<span id="currentTroops7"><?php echo (int)$currentTroops[7]; ?></span>)</strong></a>
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit8" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(8);" href="#" style="color:green"><strong>(<span id="currentTroops8"><?php echo (int)$currentTroops[8]; ?></span>)</strong></a>
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit9" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(9);" href="#" style="color:green"><strong>(<span id="currentTroops9"><?php echo (int)$currentTroops[9]; ?></span>)</strong></a>
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
-                            </div>
-                        </td>
-                        <td class="align-middle">
-                            <div class="input-group input-group-sm align-middle">
-                                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                <a href="#" style="color:green"><strong>(6969)</strong></a>
+                            <div class="input-group input-group-sm align-middle justify-content-center">
+                                <input id="unit10" type="text" class="form-control w-100 text-center" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                <a onclick="insertTroops(10);" href="#" style="color:green"><strong>(<span id="currentTroops10"><?php echo (int)$currentTroops[10]; ?></span>)</strong></a>
                             </div>
                         </td>
                     </tr>
@@ -189,7 +183,7 @@
                     <a class="dropdown-item" id="ddItem3" href="#">Raid Attack</a>
                 </div>                    
                 <div class="btn-group w-50" role="group" aria-label="Train">
-                    <button type="button" class="btn btn-success w-75 m-auto" id="sendType">Reinforcement</button>
+                    <button onclick="sendTroops();" type="button" class="btn btn-success w-75 m-auto" id="sendType">Reinforcement</button>
                 </div>
             </div>
         </div>
@@ -208,5 +202,24 @@
         $("#sendType").text("Raid Attack").css({"background-color": "purple", "border-color": "purple"});
         $("#dropdownMenuButton").text("Raid Attack");
     });
+    </script>
+    <script>
+        function insertTroops(id){           
+            document.getElementById("unit"+id).value =  document.getElementById("currentTroops"+id).innerHTML;
+        }
+    </script>
+    <script>
+    function sendTroops(){
+        troopsToSend="";
+        for(let i = 1; i < 11; i++){
+            let unit = "unit"+i;
+            if(document.getElementById(unit).value){
+                troopsToSend+="&"+unit+"="+document.getElementById(unit).value;
+            }
+        }
+        if(troopsToSend){
+            window.location.href = "/sendTroopsScript.php?"+troopsToSend;
+        }
+    }
     </script>
 </body>

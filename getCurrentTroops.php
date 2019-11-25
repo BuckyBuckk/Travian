@@ -56,6 +56,10 @@
                 $updateCurrentTroops->bind_param("ii", $currentTroops[$troopID],$villageID);
                 $updateCurrentTroops->execute();
                 $updateCurrentTroops->close();
+
+
+                //Rerun the file to check if there are more troops that were trained
+                include('getCurrentTroops.php');
             }
             else{
                 //Update troopsdonealready and the last update
