@@ -218,6 +218,11 @@
             }
         }
         if(troopsToSend){
+            let sendType = document.getElementById("dropdownMenuButton").innerText.replace(" ","").toLowerCase();
+            let toVillageID = <?php echo 2; ?>
+
+            troopsToSend+="&sendType="+sendType;
+            troopsToSend+="&toVillageID="+toVillageID;
             window.location.href = "/sendTroopsScript.php?"+troopsToSend;
         }
     }
