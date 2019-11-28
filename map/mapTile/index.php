@@ -316,7 +316,7 @@
                 <p></p>
                 <p class="h3">Options:</p>
                 <div class="d-flex justify-content-center">
-                    <a href="/sendTroops.php" class="h5"><strong>Send Troops</strong></a>
+                    <a href="/sendTroops.php?Xcoor=2&Ycoor=2" class="h5"><strong>Send Troops</strong></a>
                 </div>
                 <div class="d-flex justify-content-center">
                     <a href="" class="h5"><strong>Send Merchants</strong></a>

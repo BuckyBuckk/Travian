@@ -75,6 +75,43 @@ class TroopInfo{
             return self::$natarTroops[$troopID][0];
         }
     }
+
+    public static function getSlowestTroopSpeed($tribe,$troopIDs){
+        if(count($troopIDs) && $tribe){
+            if($tribe=="teuton"){
+                $troopSpeeds = [];
+                foreach ($troopIDs as $troopID){
+                    array_push($troopSpeeds, self::$teutonTroops[$troopID][8]);
+                }
+
+                return min($troopSpeeds);
+            }
+            else if($tribe=="roman"){
+                $troopSpeeds = [];
+                foreach ($troopIDs as $troopID){
+                    array_push($troopSpeeds, self::$romanTroops[$troopID][8]);
+                }
+
+                return min($troopSpeeds);
+            }
+            else if($tribe=="gaul"){
+                $troopSpeeds = [];
+                foreach ($troopIDs as $troopID){
+                    array_push($troopSpeeds, self::$gaulTroops[$troopID][8]);
+                }
+
+                return min($troopSpeeds);
+            }
+            else if($tribe=="natar"){
+                $troopSpeeds = [];
+                foreach ($troopIDs as $troopID){
+                    array_push($troopSpeeds, self::$natarTroops[$troopID][8]);
+                }
+
+                return min($troopSpeeds);
+            }
+        }
+    }
 }
 
 ?>
