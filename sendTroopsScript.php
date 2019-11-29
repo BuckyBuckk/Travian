@@ -91,19 +91,15 @@ if($valid){
 
     for($i=1;$i<11;$i++){
         $currentTroops[$i] = $currentTroops[$i]-$troopsToSend[$i];
-    }     
-
+    }
     
     $removeTroopsFromVillage = $connection->prepare("UPDATE villageowntroops SET troop1=?,troop2=?,troop3=?,troop4=?,troop5=?,troop6=?,troop7=?,troop8=?,troop9=?,troop10=? WHERE idVillage = ?");
     $removeTroopsFromVillage->bind_param("iiiiiiiiiii", $currentTroops[1],$currentTroops[2],$currentTroops[3],$currentTroops[4],$currentTroops[5],$currentTroops[6],$currentTroops[7],$currentTroops[8],$currentTroops[9],$currentTroops[10],$villageID);
     $removeTroopsFromVillage->execute();
     $removeTroopsFromVillage->close();
-    
-
-    
 
     $travelSpeed = TroopInfo::getSlowestTroopSpeed($userTribe,$onlyTroopsToSend);
-    $travelDistance = sqrt( pow(($fromX-$toX),2)  +  pow(($fromY-$toY),2) ) * 50;
+    $travelDistance = sqrt(pow(($fromX-$toX),2)  +  pow(($fromY-$toY),2)) * 50;
     $travelTime = (int)($travelDistance/$travelSpeed);
     $arrivalTime = $currentTime + $travelTime;
 
