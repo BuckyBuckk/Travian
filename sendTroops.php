@@ -9,6 +9,24 @@
         header('location: /login');    
     }
 
+    if(isset($_GET['Xcoor']) && isset($_GET['Ycoor'])){
+        $Xcoor = (int)mysqli_real_escape_string($connection, $_GET['Xcoor']);
+        $Ycoor = (int)mysqli_real_escape_string($connection, $_GET['Ycoor']);
+    
+        $getVillageName = $connection->prepare('SELECT * FROM allvillages WHERE Xcoordinate = ? AND Xcoordinate = ?');
+        $getVillageName->bind_param('ii', $Xcoor, $Ycoor);
+        $getVillageName->execute();
+        $resultVillageName = $getVillageName->get_result();
+        $getVillageName->close();
+    
+        $villageName = $resultVillageName->fetch_row()[4];
+        if(!$villageName){
+            header('location: /map');
+        }
+    }
+    else{
+        header('location: /map');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +109,7 @@
     <!-- Resource Fields -->
     <div class="container">
         <div class="justify-content-center text-center">
-            <h1> Send Troops to DestinationVillageName 10/-10</h1><br />
+            <h1> Send troops to <?php echo ($villageName." ".$Xcoor."/".$Ycoor);   ?></h1><br />
             <br />
             <table class="table table-bordered w-75 m-auto">
                 <thead >
@@ -218,6 +236,11 @@
             }
         }
         if(troopsToSend){
+            let sendType = document.getElementById("dropdownMenuButton").innerText.replace(" ","").toLowerCase();
+            let toX = 2; //todo
+            let toY = 2; //todo
+
+            troopsToSend+="&sendType="+sendType+"&toX="+toX+"&toY="+toY;
             window.location.href = "/sendTroopsScript.php?"+troopsToSend;
         }
     }

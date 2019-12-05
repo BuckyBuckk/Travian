@@ -112,7 +112,7 @@
     <div class="container">
         <div class="row">
             <!-- Resource Fields -->
-            <div class="col-md-8">
+            <div class="col-md-8 col-sm-12 col-12">
                 <p class="h2 text-center mb-3"><strong> <?php echo $_SESSION['username']." (capital)"; //tuki more bit village name ?></strong></p>
 
                 <div class="grid">

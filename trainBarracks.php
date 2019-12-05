@@ -23,45 +23,12 @@ $villageID = $_SESSION['idPlayer'];
 
 $troopsToTrainNum = array();
 $troopsToTrainID = array();
-if(isset($_GET['unit1'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit1']));
-    array_push($troopsToTrainID, 1);
-}
-if(isset($_GET['unit2'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit2']));
-    array_push($troopsToTrainID, 2);
-}
-if(isset($_GET['unit3'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit3']));
-    array_push($troopsToTrainID, 3);
-}
-if(isset($_GET['unit4'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit4']));
-    array_push($troopsToTrainID, 4);
-}
-if(isset($_GET['unit5'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit5']));
-    array_push($troopsToTrainID, 5);
-}
-if(isset($_GET['unit6'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit6']));
-    array_push($troopsToTrainID, 6);
-}
-if(isset($_GET['unit7'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit7']));
-    array_push($troopsToTrainID, 7);
-}
-if(isset($_GET['unit8'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit8']));
-    array_push($troopsToTrainID, 8);
-}
-if(isset($_GET['unit9'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit9']));
-    array_push($troopsToTrainID, 9);
-}
-if(isset($_GET['unit10'])){
-    array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit10']));
-    array_push($troopsToTrainID, 0);
+
+for($i = 1; $i < 11; $i++){
+    if(isset($_GET['unit'.$i])){        
+        array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit'.$i]));
+        array_push($troopsToTrainID, $i);
+    }
 }
 
 for($i = 0; $i < count($troopsToTrainID); $i++){

@@ -24,6 +24,7 @@ if (isset($_POST['username']) and isset($_POST['password'])){
     if ($count == 1 && password_verify($password, $dbpasswordhash)){
         $_SESSION['username'] = $username;
         $_SESSION['idPlayer'] = $row['idPlayer'];
+        $_SESSION['playerTribe'] = "teuton"; //TODO get this shit from the database
         $_SESSION['last_login_timestamp'] = time();
         header('location: /resources');
     } 

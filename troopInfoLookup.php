@@ -14,10 +14,30 @@ class TroopInfo{
         array("Settler",10,80,80,5800,4400,4600,5200,5,3000,1,31000)
     );
     public static $romanTroops = array(
-        array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime")
+        array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime"),
+        array("Legionnaire",40,35,50,95,75,40,40,7,60,1,1000),
+        array("Praetorian",30,65,35,95,75,40,40,7,60,1,1000),
+        array("Imperian",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000)
     );
     public static $gaulTroops = array(
-        array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime")
+        array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime"),
+        array("Phalanx",15,40,50,95,75,40,40,7,60,1,1000),
+        array("test",65,40,25,95,75,40,40,7,60,1,1000),
+        array("test",0,40,25,95,75,40,40,7,60,1,1000),
+        array("test",90,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000),
+        array("test",70,40,25,95,75,40,40,7,60,1,1000)
     );
     public static $natarTroops = array(
         array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime")
@@ -73,6 +93,72 @@ class TroopInfo{
         }
         else if($tribe=="natar"){
             return self::$natarTroops[$troopID][0];
+        }
+    }
+
+    public static function getSlowestTroopSpeed($tribe,$troopIDs){
+        if(count($troopIDs) && $tribe){
+            if($tribe=="teuton"){
+                $troopSpeeds = [];
+                foreach ($troopIDs as $troopID){
+                    array_push($troopSpeeds, self::$teutonTroops[$troopID][8]);
+                }
+
+                return min($troopSpeeds);
+            }
+            else if($tribe=="roman"){
+                $troopSpeeds = [];
+                foreach ($troopIDs as $troopID){
+                    array_push($troopSpeeds, self::$romanTroops[$troopID][8]);
+                }
+
+                return min($troopSpeeds);
+            }
+            else if($tribe=="gaul"){
+                $troopSpeeds = [];
+                foreach ($troopIDs as $troopID){
+                    array_push($troopSpeeds, self::$gaulTroops[$troopID][8]);
+                }
+
+                return min($troopSpeeds);
+            }
+            else if($tribe=="natar"){
+                $troopSpeeds = [];
+                foreach ($troopIDs as $troopID){
+                    array_push($troopSpeeds, self::$natarTroops[$troopID][8]);
+                }
+
+                return min($troopSpeeds);
+            }
+        }
+    }
+
+    public static function getTroopAttPoins($tribe,$troopID){
+        if($tribe=="teuton"){
+            return self::$teutonTroops[$troopID][1];
+        }
+        if($tribe=="roman"){
+            return self::$romanTroops[$troopID][1];
+        }
+        if($tribe=="gaul"){
+            return self::$gaulTroops[$troopID][1];
+        }
+        if($tribe=="natar"){
+            return self::$natarTroops[$troopID][1];
+        }
+    }
+    public static function getTroopDefPoins($tribe,$troopID){
+        if($tribe=="teuton"){
+            return array(self::$teutonTroops[$troopID][2],self::$teutonTroops[$troopID][3]);
+        }
+        if($tribe=="roman"){
+            return array(self::$romanTroops[$troopID][2],self::$romanTroops[$troopID][3]);
+        }
+        if($tribe=="gaul"){
+            return array(self::$gaulTroops[$troopID][2],self::$gaulTroops[$troopID][3]);
+        }
+        if($tribe=="natar"){
+            return array(self::$natarTroops[$troopID][2],self::$natarTroops[$troopID][3]);
         }
     }
 }
