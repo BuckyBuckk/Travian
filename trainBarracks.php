@@ -9,6 +9,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/troopInfoLookup.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentTroops.php');
 
+$tribe = "teuton";
 
 if(isset($_GET['vbid'])){
     $vbid=(int)mysqli_real_escape_string($connection, $_GET['vbid']);
@@ -32,9 +33,9 @@ for($i = 1; $i < 11; $i++){
 }
 
 for($i = 0; $i < count($troopsToTrainID); $i++){
-    $trainTime[$i] = TroopInfo::getTrainTime("teuton",$troopsToTrainID[$i]);
-    $trainCost = TroopInfo::getTrainCost("teuton",$troopsToTrainID[$i]);
-    $troopName[$i] = TroopInfo::getTroopName("teuton",$troopsToTrainID[$i]);
+    $trainTime[$i] = TroopInfo::getTrainTime($tribe,$troopsToTrainID[$i]);
+    $trainCost = TroopInfo::getTrainCost($tribe,$troopsToTrainID[$i]);
+    $troopName[$i] = TroopInfo::getTroopName($tribe,$troopsToTrainID[$i]);
 
     $combinedTrainTime[$i] = $trainTime[$i] * $troopsToTrainNum[$i];
     $combinedTrainCost = [];

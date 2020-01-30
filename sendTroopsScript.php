@@ -40,12 +40,18 @@ if(isset($_GET['sendType']) && isset($_GET['toX']) && isset($_GET['toY'])){
     $resultToVillageID = $getToVillageID->get_result();
     $getToVillageID->close();
 
-    $toVillageID = $resultToVillageID->fetch_row();
+    $toVillageID = $resultToVillageID->fetch_assoc()["idvillage"];
     if(!$toVillageID){
         $valid = false;
     }
     if(!($sendType == "reinforcement" || $sendType == "fullattack" || $sendType == "raidattack")){
         $valid = false;
+    }
+    else if($sendType == "fullattack"){
+        $sendType = "full";
+    }
+    else if($sendType == "raidattack"){
+        $sendType = "raid";
     }
 }
 else{
