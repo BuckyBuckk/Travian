@@ -75,7 +75,6 @@ for($i = 1; $i < 11; $i++){
     }
 }
 
-$anyUnits = false;
 for($i = 1; $i < 11; $i++){
     if((int)$troopsToSend[$i] > (int)$currentTroops[$i]){
         $valid = false;
