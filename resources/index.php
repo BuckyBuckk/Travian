@@ -9,6 +9,7 @@
     require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentResources.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsLevel.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getResourceFieldsType.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/getTroopMovements.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/calculateProduction.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentUpgrades.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/getCurrentTroops.php');
@@ -371,19 +372,63 @@
             <!-- Troop Movements and other stuff on the right -->
             <div class="col-md-3 text-center">
                 <p></p>
-                <p class="h3">Troop Movements:</p>
-                <div class="d-flex justify-content-between">
-                    <h5 style="color:Red"><img style="width: 1.2rem;" src="/img/att_inc.gif"><strong> 1 Attack</strong></h5>
-                    <h5>in 0:15:06 hrs.</h5>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <h5 style="color:Orange"><img style="width: 1.2rem;" src="/img/att_out.gif"><strong> 2 Attacks</strong></h5>
-                    <h5>in 1:05:35 hrs.</h5>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <h5 style="color:Green"><img style="width: 1.2rem;" src="/img/def_1.gif"><strong> 45 Reinf.</strong></h5>
-                    <h5>in 0:55:30 hrs.</h5>
-                </div>
+                <?php
+                if(count($incomingAttacks) || count($outgoingAttacks) || count($incomingReinforcements) || count($outgoingReinforcements)){
+                    echo('<p class="h3">Troop Movements:</p>');
+
+                    if(count($incomingAttacks) == 1){
+                        echo('
+                        <div class="d-flex justify-content-between">
+                            <h5 style="color:Red"><img style="width: 1.2rem;" src="/img/att_inc.gif"><strong> '.count($incomingAttacks).' Attack</strong></h5>
+                            <h5>in <span id="incAtt">'.date("H:i:s",(int)$incomingAttacks[0][5]-time()-3600).'</span></h5>
+                        </div>
+                        ');
+                    }
+                    else if(count($incomingAttacks) > 1){
+                        echo('
+                        <div class="d-flex justify-content-between">
+                            <h5 style="color:Red"><img style="width: 1.2rem;" src="/img/att_inc.gif"><strong> '.count($incomingAttacks).' Attacks</strong></h5>
+                            <h5>in <span id="incAtt">'.date("H:i:s",(int)$incomingAttacks[0][5]-time()-3600).'</span></h5>
+                        </div>
+                        ');
+                    }
+
+                    if(count($outgoingAttacks) == 1){
+                        echo('
+                        <div class="d-flex justify-content-between">
+                            <h5 style="color:Orange"><img style="width: 1.2rem;" src="/img/att_out.gif"><strong> '.count($outgoingAttacks).' Attack</strong></h5>
+                            <h5>in <span id="outAtt">'.date("H:i:s",(int)$outgoingAttacks[0][5]-time()-3600).'</span></h5>
+                        </div>
+                        ');
+                        }
+                    else if(count($outgoingAttacks) > 1){
+                        echo('
+                        <div class="d-flex justify-content-between">
+                        <h5 style="color:Orange"><img style="width: 1.2rem;" src="/img/att_out.gif"><strong> '.count($outgoingAttacks).' Attacks</strong></h5>
+                            <h5>in <span id="outAtt">'.date("H:i:s",(int)$outgoingAttacks[0][5]-time()-3600).'</span></h5>
+                        </div>'
+                        );
+                    }
+                    
+                    if(count($incomingReinforcements)){
+                        echo('
+                        <div class="d-flex justify-content-between">
+                        <h5 style="color:Orange"><img style="width: 1.2rem;" src="/img/att_out.gif"><strong> '.count($incomingReinforcements).' Reinf.</strong></h5>
+                            <h5>in <span id="outReinf">'.date("H:i:s",(int)$incomingReinforcements[0][5]-time()-3600).'</span></h5>
+                        </div>'
+                        );
+                    }
+
+                    if(count($outgoingReinforcements)){
+                        echo('
+                        <div class="d-flex justify-content-between">
+                        <h5 style="color:Orange"><img style="width: 1.2rem;" src="/img/def2.gif"><strong> '.count($outgoingReinforcements).' Reinf.</strong></h5>
+                            <h5>in <span id="incReinf">'.date("H:i:s",(int)$outgoingReinforcements[0][5]-time()-3600).'</span></h5>
+                        </div>'
+                        );
+                    }
+                }
+                ?>
                 <p></p>
                 <p class="h3">Production:</p>
                 <div class="d-flex justify-content-between">
@@ -523,6 +568,118 @@
                         s="0"+s;
                     }
                     document.getElementById("upgradeCD2").innerHTML=h+":"+m+":"+s;
+                }
+            }, 1000);
+        }
+
+        if(document.getElementById("incAtt")){
+            var incAttInterval = setInterval( ()=> {
+                let incAtt = document.getElementById("incAtt").innerHTML.split(":");
+
+                let incAttSeconds = 3600*parseInt(incAtt[0]) + 60*parseInt(incAtt[1]) + parseInt(incAtt[2]);
+                incAttSeconds--;
+
+                if(incAttSeconds==-1){
+                    location.reload();
+                }
+                else{
+                    var h = Math.floor(incAttSeconds / 3600);
+                    if(h<10){
+                        h="0"+h;
+                    }
+                    var m = Math.floor(incAttSeconds % 3600 / 60);
+                    if(m<10){
+                        m="0"+m;
+                    }
+                    var s = Math.floor(incAttSeconds % 3600 % 60);
+                    if(s<10){
+                        s="0"+s;
+                    }
+                    document.getElementById("incAtt").innerHTML=h+":"+m+":"+s;
+                }
+            }, 1000);
+        }
+
+        if(document.getElementById("outAtt")){
+            var outAttInterval = setInterval( ()=> {
+                let outAtt = document.getElementById("outAtt").innerHTML.split(":");
+
+                let outAttSeconds = 3600*parseInt(outAtt[0]) + 60*parseInt(outAtt[1]) + parseInt(outAtt[2]);
+                outAttSeconds--;
+
+                if(outAttSeconds==-1){
+                    location.reload();
+                }
+                else{
+                    var h = Math.floor(outAttSeconds / 3600);
+                    if(h<10){
+                        h="0"+h;
+                    }
+                    var m = Math.floor(outAttSeconds % 3600 / 60);
+                    if(m<10){
+                        m="0"+m;
+                    }
+                    var s = Math.floor(outAttSeconds % 3600 % 60);
+                    if(s<10){
+                        s="0"+s;
+                    }
+                    document.getElementById("outAtt").innerHTML=h+":"+m+":"+s;
+                }
+            }, 1000);
+        }
+
+        if(document.getElementById("incReinf")){
+            var incReinfInterval = setInterval( ()=> {
+                let incReinf = document.getElementById("incReinf").innerHTML.split(":");
+
+                let incReinfSeconds = 3600*parseInt(incReinf[0]) + 60*parseInt(incReinf[1]) + parseInt(incReinf[2]);
+                incReinfSeconds--;
+
+                if(incReinfSeconds==-1){
+                    location.reload();
+                }
+                else{
+                    var h = Math.floor(incReinfSeconds / 3600);
+                    if(h<10){
+                        h="0"+h;
+                    }
+                    var m = Math.floor(incReinfSeconds % 3600 / 60);
+                    if(m<10){
+                        m="0"+m;
+                    }
+                    var s = Math.floor(incReinfSeconds % 3600 % 60);
+                    if(s<10){
+                        s="0"+s;
+                    }
+                    document.getElementById("incReinf").innerHTML=h+":"+m+":"+s;
+                }
+            }, 1000);
+        }
+
+        if(document.getElementById("outReinf")){
+            var outReinfInterval = setInterval( ()=> {
+                let outReinf = document.getElementById("outReinf").innerHTML.split(":");
+
+                let outReinfSeconds = 3600*parseInt(outReinf[0]) + 60*parseInt(outReinf[1]) + parseInt(outReinf[2]);
+                outReinfSeconds--;
+
+                if(outReinfSeconds==-1){
+                    location.reload();
+                }
+                else{
+                    var h = Math.floor(outReinfSeconds / 3600);
+                    if(h<10){
+                        h="0"+h;
+                    }
+                    var m = Math.floor(outReinfSeconds % 3600 / 60);
+                    if(m<10){
+                        m="0"+m;
+                    }
+                    var s = Math.floor(outReinfSeconds % 3600 % 60);
+                    if(s<10){
+                        s="0"+s;
+                    }
+                    document.getElementById("outReinf").innerHTML=h+":"+m+":"+s;
                 }
             }, 1000);
         }

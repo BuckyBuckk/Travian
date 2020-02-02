@@ -162,18 +162,18 @@ echo $totalCalDefPoints."<br>";
 // Remove the killed units
 if($winner == "attacker"){
     for($i = 1; $i < 11; $i++){
-        $attackersTroopsAfter[$i] =  (int)($attackersTroops[$i]*(1-$casualtiesPercentWinner));
+        $attackersTroopsAfter[$i] =  (int)round(($attackersTroops[$i]*(1-$casualtiesPercentWinner)));
     }
     for($i = 1; $i < 11; $i++){
-        $defendersTroopsAfter[$i] =  (int)($defendersTroops[$i]*(1-$casualtiesPercentLoser));
+        $defendersTroopsAfter[$i] =  (int)round(($defendersTroops[$i]*(1-$casualtiesPercentLoser)));
     }
 }
 else if($winner == "defender"){
     for($i = 1; $i < 11; $i++){
-        $attackersTroopsAfter[$i] =  (int)($attackersTroops[$i]*(1-$casualtiesPercentLoser));
+        $attackersTroopsAfter[$i] =  (int)round(($attackersTroops[$i]*(1-$casualtiesPercentLoser)));
     }
     for($i = 1; $i < 11; $i++){
-        $defendersTroopsAfter[$i] =  (int)($defendersTroops[$i]*(1-$casualtiesPercentWinner));
+        $defendersTroopsAfter[$i] =  (int)round(($defendersTroops[$i]*(1-$casualtiesPercentWinner)));
     }
 }
 

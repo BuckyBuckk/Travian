@@ -13,8 +13,8 @@
     $currentUpgrades = $resultCurrentUpgrades->fetch_all(MYSQLI_NUM);
 
     //If there are 2 upgrades and the second takes less time, switch them
-    if(count($currentUpgrades)==2){
-        if(($currentUpgrades[0][5]-$currentUpgrades[0][4]) > ($currentUpgrades[1][5] - $currentUpgrades[0][4])){
+    if(count($currentUpgrades) == 2){
+        if(($currentUpgrades[0][5] - $currentUpgrades[0][4]) > ($currentUpgrades[1][5] - $currentUpgrades[0][4])){
             $temp = $currentUpgrades[0];
             $currentUpgrades[0] = $currentUpgrades[1];
             $currentUpgrades[1] = $temp;

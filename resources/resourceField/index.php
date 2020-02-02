@@ -23,6 +23,7 @@
     $resFieldLevelRow = $resultResFieldLevel->fetch_row();
 
     $resFieldLevel = $resFieldLevelRow[$rfid];
+    $resFieldLevelNext = $resFieldLevel + 1;
     $getResFieldLevel->close();
 
     //Gets specific resource field type
@@ -51,23 +52,23 @@
     }
 
     $productionCurrLevel = ResourceInfo::getProduction($resFieldType,$resFieldLevel);
-    $productionNextLevel = ResourceInfo::getProduction($resFieldType,$resFieldLevel+1);
+    $productionNextLevel = ResourceInfo::getProduction($resFieldType,$resFieldLevelNext);
 
-    $upgradeReqsNextLevel = ResourceInfo::getUpgradeReq($resFieldType,$resFieldLevel+1);
+    $upgradeReqsNextLevel = ResourceInfo::getUpgradeReq($resFieldType,$resFieldLevelNext);
 
     //Converts time to H:m:s
     $timeNextLevelHours = (int)($upgradeReqsNextLevel[5] / 3600);
-    if($timeNextLevelHours<10){
+    if($timeNextLevelHours < 10){
         $timeNextLevelHours="0".$timeNextLevelHours;
     }
 
     $timeNextLevelMinutes = (int)($upgradeReqsNextLevel[5] % 3600 / 60);
-    if($timeNextLevelMinutes<10){
+    if($timeNextLevelMinutes < 10){
         $timeNextLevelMinutes="0".$timeNextLevelMinutes;
     }
 
     $timeNextLevelSeconds = (int)($upgradeReqsNextLevel[5] % 3600 % 60);
-    if($timeNextLevelSeconds<10){
+    if($timeNextLevelSeconds < 10){
         $timeNextLevelSeconds="0".$timeNextLevelSeconds;
     }
 
@@ -134,17 +135,20 @@
         <div class="d-flex justify-content-center" id="currentResources">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif"> <?php echo (int)$currentRes[1]."/".(int)$maxRes[1] ?>
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/wood.gif">
+                    <span id="currentWood"><?php echo (int)$newWood; ?></span>/<span id="maxWood"><?php echo (int)$maxRes[1]; ?></span>
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/clay.gif"> <?php echo (int)$currentRes[2]."/".(int)$maxRes[2] ?>
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/clay.gif">
+                    <span id="currentClay"><?php echo (int)$newClay; ?></span>/<span id="maxClay"><?php echo (int)$maxRes[2]; ?></span>
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/iron.gif"> <?php echo (int)$currentRes[3]."/".(int)$maxRes[3] ?>
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/iron.gif">
+                    <span id="currentIron"><?php echo (int)$newIron; ?></span>/<span id="maxIron"><?php echo (int)$maxRes[3]; ?></span>
                 </li>
                 <li class="list-group-item">
-                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif"> <?php echo (int)$currentRes[4]."/".(int)$maxRes[4] ?>
-
+                    <img style="width: 1.2rem;height: 0.9rem;" src="/img/crop.gif">
+                    <span id="currentCrop"><?php echo (int)$newCrop; ?></span>/<span id="maxCrop"><?php echo (int)$maxRes[4]; ?></span>
                 </li>
             </ul>
         </div>
@@ -159,9 +163,9 @@
             <h1><?php echo $resFieldTypeLong; ?> Level <?php echo $resFieldLevel; ?></h1><br />
             <h6><?php echo $resFieldDesc; ?></h6><br />
             <h5><p>Current production:        <?php echo $productionCurrLevel; ?> per hour</p></h5>
-            <h5><p>Production at Level <?php echo $resFieldLevel+1; ?>:        <?php echo $productionNextLevel; ?> per hour</p></h5>
+            <h5><p>Production at Level <?php echo $resFieldLevelNext; ?>:        <?php echo $productionNextLevel; ?> per hour</p></h5>
             <br />
-            <h4> <p>Cost for upgrading to Level <?php echo $resFieldLevel+1; ?>:</p></h4>
+            <h4> <p>Cost for upgrading to Level <?php echo $resFieldLevelNext; ?>:</p></h4>
             <h5> <p>
                 <img style="width: 1.5rem;height: 1rem;" src="/img/wood.gif"> <?php echo $upgradeReqsNextLevel[0]; ?> |
                 <img style="width: 1.5rem;height: 1rem;" src="/img/clay.gif"> <?php echo $upgradeReqsNextLevel[1]; ?> |
@@ -170,6 +174,14 @@
                 <img style="width: 1.5rem;height: 1rem;" src="/img/consum.gif"> <?php echo $upgradeReqsNextLevel[4]; ?> |
                 <img style="width: 1.5rem;height: 1rem;" src="/img/clock.gif"> <?php echo $timeNextLevel; ?></p>
             </h5>
-            <h5> <a href="/upgradeResField.php?rfid=<?php echo $rfid; ?>" >Upgrade to Level <?php echo $resFieldLevel+1; ?></a> </h5>
+            <?php 
+            if((int)$newWood >= $upgradeReqsNextLevel[0] && (int)$newClay >= $upgradeReqsNextLevel[1] && (int)$newIron >= $upgradeReqsNextLevel[2] && (int)$newCrop >= $upgradeReqsNextLevel[3]){
+                echo('<h5> <a href="/upgradeResField.php?rfid='.$rfid.'" >Upgrade to Level '. $resFieldLevelNext .'</a> </h5>');
+            }
+            else{
+                echo('<h5> <a>Upgrade to Level '. $resFieldLevelNext .'</a> </h5>');
+            }
+            ?>
         </div>
     </div>
+</body>

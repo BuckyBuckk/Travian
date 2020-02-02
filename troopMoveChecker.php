@@ -1,9 +1,9 @@
 <?php
 
     $start = microtime(true);
-    set_time_limit(60);
+    set_time_limit(600);
     
-    for ($i = 0; $i < 59; ++$i) {
+    for ($i = 0; $i < 599; ++$i) {
         $troopMoves = checkTroopMoves();
         if( $troopMoves ){
             foreach($troopMoves as $troopMove){
@@ -17,7 +17,6 @@
                     executeReturn($troopMove);
                 }           
             }
-            break;
         };
         time_sleep_until($start + $i + 1);
     }
@@ -58,14 +57,17 @@
         $defendersTroops = array(0,(int)$resultGetDefender[1],(int)$resultGetDefender[2],(int)$resultGetDefender[3],(int)$resultGetDefender[4],(int)$resultGetDefender[5],(int)$resultGetDefender[6],(int)$resultGetDefender[7],(int)$resultGetDefender[8],(int)$resultGetDefender[9],(int)$resultGetDefender[10]);
 
         require($_SERVER['DOCUMENT_ROOT'].'/combatCalculator.php');
+
         /*
         $updateTroopsAttacker = $connection->prepare("UPDATE villageowntroops SET troop1=?,troop2=?,troop3=?,troop4=?,troop5=?,troop6=?,troop7=?,troop8=?,troop9=?,troop10=? WHERE idVillage = ?");
         $updateTroopsAttacker->bind_param("iiiiiiiiiii", $attackersTroopsAfter[1],$attackersTroopsAfter[2],$attackersTroopsAfter[3],$attackersTroopsAfter[4],$attackersTroopsAfter[5],$attackersTroopsAfter[6],$attackersTroopsAfter[7],$attackersTroopsAfter[8],$attackersTroopsAfter[9],$attackersTroopsAfter[10],$attack[2]);
         $updateTroopsAttacker->execute();
         $updateTroopsAttacker->close();
         */
+
         $travelTime = $attack[5] - $attack[4];
-        $arrivalTime = $currentTime + $travelTime;
+        //$arrivalTime = $currentTime + $travelTime;
+        $arrivalTime = $attack[5] + $travelTime;
         $sendType = "return";
 
 

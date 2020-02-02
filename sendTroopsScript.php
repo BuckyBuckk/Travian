@@ -104,7 +104,7 @@ if($valid){
     $removeTroopsFromVillage->close();
 
     $travelSpeed = TroopInfo::getSlowestTroopSpeed($userTribe,$onlyTroopsToSend);
-    $travelDistance = sqrt(pow(($fromX-$toX),2)  +  pow(($fromY-$toY),2)) * 50;
+    $travelDistance = sqrt(pow(($fromX-$toX),2)  +  pow(($fromY-$toY),2)) * 10;
     $travelTime = (int)($travelDistance/$travelSpeed);
     $arrivalTime = $currentTime + $travelTime;
 
