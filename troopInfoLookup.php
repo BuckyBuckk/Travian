@@ -15,32 +15,33 @@ class TroopInfo{
     );
     public static $romanTroops = array(
         array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime"),
-        array("Legionnaire",40,35,50,95,75,40,40,7,60,1,1000),
-        array("Praetorian",30,65,35,95,75,40,40,7,60,1,1000),
-        array("Imperian",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000)
+        array("Legionnaire",40,35,50,120,100,150,30,6,50,1,1600),
+        array("Praetorian",30,65,35,100,130,160,70,5,20,1,1760),
+        array("Imperian",70,40,25,150,160,210,80,7,50,1,1920),
+        array("Equites Legati",0,20,10,140,160,20,40,16,0,2,1360),
+        array("Equites Imperatoris",120,65,50,550,440,320,100,14,100,3,2640),
+        array("Equites Caesaris",180,80,105,550,640,800,180,10,70,4,3520),
+        array("Ram",60,30,75,900,360,500,70,4,0,3,4600),
+        array("Fire Catapult",75,60,10,950,1350,600,90,3,0,6,9000),
+        array("Senator",50,40,30,30750,27200,45000,37500,4,0,5,90700),
+        array("Settler",0,80,80,5800,5300,7200,5500,5,3000,1,26900)
     );
     public static $gaulTroops = array(
         array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime"),
-        array("Phalanx",15,40,50,95,75,40,40,7,60,1,1000),
-        array("test",65,40,25,95,75,40,40,7,60,1,1000),
-        array("test",0,40,25,95,75,40,40,7,60,1,1000),
-        array("test",90,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000),
-        array("test",70,40,25,95,75,40,40,7,60,1,1000)
+        array("Phalanx",15,40,50,100,130,55,30,7,35,1,1040),
+        array("Swordsmen",65,35,20,140,150,185,60,6,45,1,1440),
+        array("Pathfinder",0,20,10,170,150,20,40,17,0,2,1360),
+        array("Theutates Thunder",90,25,40,350,450,230,60,19,75,2,2480),
+        array("Druidrider",45,115,55,360,330,280,120,16,35,2,2560),
+        array("Haeduan",140,60,165,500,620,675,170,13,65,3,3120),
+        array("Ram",50,30,105,950,555,330,75,4,0,3,5000),
+        array("Trebuchet",70,45,10,960,1450,630,90,3,0,6,9000),
+        array("Chieftain",40,50,50,30750,45400,31000,37500,5,0,4,90700),
+        array("Settler",0,80,80,4400,5600,4200,3900,5,3000,1,22700)
     );
     public static $natarTroops = array(
-        array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime")
+        array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime"),
+
     );
 
     public static function getTrainCost($tribe,$troopID){
@@ -147,6 +148,7 @@ class TroopInfo{
             return self::$natarTroops[$troopID][1];
         }
     }
+    
     public static function getTroopDefPoins($tribe,$troopID){
         if($tribe=="teuton"){
             return array(self::$teutonTroops[$troopID][2],self::$teutonTroops[$troopID][3]);

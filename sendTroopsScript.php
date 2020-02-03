@@ -40,12 +40,18 @@ if(isset($_GET['sendType']) && isset($_GET['toX']) && isset($_GET['toY'])){
     $resultToVillageID = $getToVillageID->get_result();
     $getToVillageID->close();
 
-    $toVillageID = $resultToVillageID->fetch_row();
+    $toVillageID = $resultToVillageID->fetch_assoc()["idvillage"];
     if(!$toVillageID){
         $valid = false;
     }
     if(!($sendType == "reinforcement" || $sendType == "fullattack" || $sendType == "raidattack")){
         $valid = false;
+    }
+    else if($sendType == "fullattack"){
+        $sendType = "full";
+    }
+    else if($sendType == "raidattack"){
+        $sendType = "raid";
     }
 }
 else{
@@ -69,7 +75,6 @@ for($i = 1; $i < 11; $i++){
     }
 }
 
-$anyUnits = false;
 for($i = 1; $i < 11; $i++){
     if((int)$troopsToSend[$i] > (int)$currentTroops[$i]){
         $valid = false;
@@ -99,7 +104,7 @@ if($valid){
     $removeTroopsFromVillage->close();
 
     $travelSpeed = TroopInfo::getSlowestTroopSpeed($userTribe,$onlyTroopsToSend);
-    $travelDistance = sqrt(pow(($fromX-$toX),2)  +  pow(($fromY-$toY),2)) * 50;
+    $travelDistance = sqrt(pow(($fromX-$toX),2)  +  pow(($fromY-$toY),2)) * 10;
     $travelTime = (int)($travelDistance/$travelSpeed);
     $arrivalTime = $currentTime + $travelTime;
 

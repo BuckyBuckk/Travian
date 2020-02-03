@@ -141,7 +141,7 @@
                             <img style="width: 1.2rem;height: 1rem;" src="/img/iron.gif"> 40 |
                             <img style="width: 1.2rem;height: 1rem;" src="/img/crop.gif"> 40 |
                             <img style="width: 1.2rem;height: 1rem;" src="/img/consum.gif"> 1 |
-                            <img style="width: 1.2rem;height: 1rem;" src="/img/clock.gif"> 0:00:03
+                            <img style="width: 1.2rem;height: 1rem;" src="/img/clock.gif"> 0:00:10
                         </th>
                         <td class="align-middle">
                             <div class="input-group input-group-sm mb-3 align-middle">
@@ -216,10 +216,10 @@
     <script>
     function train(){
         unitsToTrain="";
-        if(document.getElementById("unit1").value){
+        if(document.getElementById("unit1").value > 0){
             unitsToTrain+="&unit1="+document.getElementById("unit1").value;
         }
-        if(document.getElementById("unit2").value){
+        if(document.getElementById("unit2").value > 0){
             unitsToTrain+="&unit2="+document.getElementById("unit2").value;
         }
 

@@ -77,8 +77,10 @@
         }
     }
 
+    /*
     class CurrentTroops{
         public static function removeTroops($villageID,$troops){
         }
     }
+    */
 ?>

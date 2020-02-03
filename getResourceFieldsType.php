@@ -2,7 +2,7 @@
     require_once($_SERVER['DOCUMENT_ROOT'].'/connect.php');
 
     //Get village data
-    $villageID=$_SESSION['idPlayer'];
+    $villageID = $_SESSION['idPlayer'];
 
     //Get current resources
     $getResFieldType = $connection->prepare('SELECT * FROM villagefieldtypes WHERE idVillage= ?');
