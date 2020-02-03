@@ -28,7 +28,7 @@ class TroopInfo{
     );
     public static $gaulTroops = array(
         array("name","attack","infDef","calDef","wood","clay","iron","crop","speed","capacity","consumption","trainTime"),
-        array("Phalanx",15,40,50,95,75,40,40,7,60,1,1040),
+        array("Phalanx",15,40,50,100,130,55,30,7,35,1,1040),
         array("Swordsmen",65,35,20,140,150,185,60,6,45,1,1440),
         array("Pathfinder",0,20,10,170,150,20,40,17,0,2,1360),
         array("Theutates Thunder",90,25,40,350,450,230,60,19,75,2,2480),

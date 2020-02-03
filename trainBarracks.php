@@ -26,9 +26,11 @@ $troopsToTrainNum = array();
 $troopsToTrainID = array();
 
 for($i = 1; $i < 11; $i++){
-    if(isset($_GET['unit'.$i])){        
-        array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit'.$i]));
-        array_push($troopsToTrainID, $i);
+    if(isset($_GET['unit'.$i])){
+        if($_GET['unit'.$i] > 0){
+            array_push($troopsToTrainNum, (int)mysqli_real_escape_string($connection, $_GET['unit'.$i]));
+            array_push($troopsToTrainID, $i);
+        }
     }
 }
 
